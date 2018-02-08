@@ -1,7 +1,7 @@
 import { Auth, FramesService, ClientsService, Utils } from "./typescriptFiles/services"
 import {
-    EdnoKriloOpenTiltHingesLeft, KriloOpenTilt,
-    Krilo, Kasa, RollerShutter, ProcessData, SystemsMaterial
+    EdnoKriloOpenTiltHingesLeft, 
+    Krilo, Kasa, RollerShutter, ProcessData, 
 } from "./typescriptFiles/frameClasses";
 
 

@@ -1,3 +1,30 @@
+
+export enum EnumMaterial {
+    pvc,
+    aluminium
+}
+
+export enum EnumKrilo {
+    fix,
+    open,
+    openTilt,
+    hingesSideLeft,
+    hingesSideRight,
+}
+
+export enum EnumKasa {
+    normal,
+    Zkasa,
+}
+
+export enum EnumLedges {
+    TopLeftRight,
+    TopLeft,
+    TopRight,
+    FourSides
+}
+
+
 interface IProfilSectionDetails {
     profilSectionWidth: number;
     profilSectionHeight: number;
@@ -6,6 +33,12 @@ interface IProfilSectionDetails {
 interface IProfilApplicataionAndType {
     profilType: string;
     profilApplication: string;
+}
+export class RollerShutter {
+    constructor(private material: string,
+        private typeOfBuild: string,
+        private width: number,
+        private height: number) { }
 }
 
 export class SectionFrame implements IProfilSectionDetails, IProfilApplicataionAndType {
@@ -25,80 +58,39 @@ export class SectionFrame implements IProfilSectionDetails, IProfilApplicataionA
 
 
 
-export class Shtora {
-    constructor(private profilMaterial: string,
-        private selectedShtora: string,
-        private width: number) {
-
-    }
-}
 
 
-export class WindowShablon {
-    Kasa: Kasa;
-    kasa: SectionFrame
-    constructor(Kasa: Kasa, kasa: SectionFrame) {
-        this.Kasa = Kasa
-        this.kasa = kasa
-    }
-}
-
-export class Dvukril extends WindowShablon {
-    kriloLqvo: SectionFrame
-    kriloDqsno: SectionFrame
-    constructor(Kasa: Kasa, kasa: SectionFrame, kriloLqvo: SectionFrame, kriloDqsno: SectionFrame) {
-        super(Kasa, kasa)
-        this.kriloLqvo = kriloLqvo
-        this.kriloDqsno = kriloDqsno
-    }
-}
-
-export class RollerShutter {
-    constructor(private material: string,
-        private typeOfBuild: string,
-        private width: number,
-        private height: number) { }
-}
 
 export class Kasa {
-    width: number
-    height: number
-    constructor(width: number, height: number) {
-        this.width = width;
-        this.height = height;
+    constructor(private typeKasa: EnumKasa, private width: number, private height: number) {
     }
 }
 
 export class Krilo {
-    width: number
-    height: number
-    constructor(width: number, height: number) {
-        this.width = width;
-        this.height = height;
+    constructor(private positionHinges: EnumKrilo,
+        private tilting: EnumKrilo,
+        private width: number,
+        private height: number) {
     }
 }
 
-export class KriloOpenTilt extends Krilo {
+export class WindowSystemBasic {
+    // ledges: EnumLedges
     constructor(
-        private positionHinges: string, private tilting: boolean,
-        width: number, height: number) {
-        super(width, height)
+        private profilModel: string, private kasa: Kasa, private glavnoKrilo: Krilo) {
     }
 }
 
-export class EdnoKriloOpenTiltHingesLeft {
+export class EdnoKriloOpenTiltHingesLeft extends WindowSystemBasic {
     constructor(
-        private profilModel: string,
-        private kasa: Kasa,
-        private krilo: KriloOpenTilt,
+        profilModel: string,
+        kasa: Kasa,
+        glavnoKrilo: Krilo,
         private rollerShutter?: RollerShutter, ) {
+        super(profilModel, kasa, glavnoKrilo)
     }
 }
 
-export enum SystemsMaterial {
-    pvc,
-    aluminium
-}
 
 export class ProcessData {
 
@@ -156,8 +148,8 @@ export class ProcessData {
 
         let ednoKriloOpenTiltHingesLeft = new EdnoKriloOpenTiltHingesLeft(
             this.profilModel,
-            new Kasa(this.widthKasa, this.heightKasa),
-            new KriloOpenTilt('left', true, this.widthKrilo, this.heightKrilo),
+            new Kasa(EnumKasa.normal, this.widthKasa, this.heightKasa),
+            new Krilo(EnumKrilo.hingesSideLeft, EnumKrilo.openTilt, this.widthKrilo, this.heightKrilo),
             this.rollerShutter
         )
 
