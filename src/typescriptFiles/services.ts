@@ -16,12 +16,34 @@ export class Utils {
                 let root = $('#forselect')
                     .append(select)
 
-                console.log(root.html())
+                // console.log(root.html())
             } else {
                 $('#forselect').html('')
             }
         });
     }
+
+    mreji() {
+        $('#checkBoxMreja').change(function () {
+
+
+            if ($('#checkBoxMreja').is(':checked')) {
+                let option1 = $(`<option value="static">статична</option>`)
+                let option2 = $(`<option value="sliding">плъзгана</option>`)
+                let select = $(`<select class="form-control" name="selectMreja" id="selectMreja"></select>`)
+                select
+                    .append(option1)
+                    .append(option2)
+                let root = $('#forSelectMreja')
+                    .append(select)
+
+                // console.log(root.html())
+            } else {
+                $('#forSelectMreja').html('')
+            }
+        });
+    }
+
     mestaklopaketi() {
 
         $('#staklopaket').change(function () {

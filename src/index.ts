@@ -1,6 +1,6 @@
 import { Auth, FramesService, ClientsService, Utils } from "./typescriptFiles/services"
 import {
-    EdnoKriloOpenTiltHingesLeft, 
+    EdnoKrilo, 
     Krilo, Kasa, RollerShutter, ProcessData, 
 } from "./typescriptFiles/frameClasses";
 
@@ -151,6 +151,7 @@ $(() => {
                                 utils.izberiProfilPoMaterial()
                                 utils.mestaklopaketi()
                                 utils.shtori()
+                                utils.mreji()
                             })
 
                     })
@@ -159,8 +160,8 @@ $(() => {
 
         })
         this.post('#/catalog/create', function (ctx) {
-            let snimkaName = $('#test1').attr('data-snimka')
-            ctx.params['snimkaName'] = snimkaName
+            let snimkaId = $('#test1').attr('data-snimka-id')
+            ctx.params['snimkaId'] = snimkaId
 
             let output = new ProcessData(ctx.params)
 
