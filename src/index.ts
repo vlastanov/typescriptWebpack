@@ -163,8 +163,14 @@ $(() => {
             ctx.params['snimkaName'] = snimkaName
 
             let output = new ProcessData(ctx.params)
-            console.log(output.produceOutput())
-            auth.showError('greshka');
+
+            try {
+                console.log(output.produceOutput())
+                
+            } catch (error) {
+                console.log(error)
+                auth.showError(error.message);
+            }
 
             // framesService
             //     .createFrame(width, height, client)

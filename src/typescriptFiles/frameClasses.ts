@@ -110,8 +110,10 @@ export class ProcessData {
     hasRollerShutter: boolean
     profilMaterial: string
 
+    rollerShutter: RollerShutter
+
     constructor(private params: Object) {
-        // console.log(params)
+
         this.profilModel = this.params['profilModel']
         let selectGlass = this.params['selectGlass']
 
@@ -124,28 +126,42 @@ export class ProcessData {
         this.hasRollerShutter = this.params['checkBoxShtora'] === 'on'
         this.profilMaterial = this.params['profilMaterial']
 
+        this.produceRollerShutter()
 
     }
 
-    produceOutput() {
-        let snimkaId = this.params['snimkaName']
+    produceRollerShutter(): RollerShutter {
         let rollerShutter: RollerShutter
+
         if (this.hasRollerShutter) {
+            let heightRollerShutter = 2
+            this.heightKasa = this.heightKasa - heightRollerShutter
+
+
             let selectedShtora = this.params['selectShtora']
             rollerShutter = new RollerShutter(
                 this.profilMaterial,
                 selectedShtora,
                 this.widthKasa,
-                5)
+                heightRollerShutter)
 
         }
-        console.log(rollerShutter)
+
+        return this.rollerShutter
+    }
+
+    produceOutput() {
+
+        let snimkaId = this.params['snimkaName']
+
         let ednoKriloOpenTiltHingesLeft = new EdnoKriloOpenTiltHingesLeft(
             this.profilModel,
             new Kasa(this.widthKasa, this.heightKasa),
             new KriloOpenTilt('left', true, this.widthKrilo, this.heightKrilo),
-            rollerShutter
+            this.rollerShutter
         )
+
+        // throw new Error('greshka ot ruk')
 
 
         return ednoKriloOpenTiltHingesLeft
