@@ -41,4 +41,8 @@ body {
   #errorBox {
     background: #F50;
   }
+
+  .hideSelect{
+    display: none
+  }
   

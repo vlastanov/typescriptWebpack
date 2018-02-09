@@ -146,8 +146,10 @@ export class ProcessData {
     width: number
     height: number
 
-    hasRollerShutter: boolean
-    hasKapak: boolean
+    shutter: string
+
+    // hasRollerShutter: boolean
+    // hasKapak: boolean
     hasMreja: boolean
 
     constructor(private params: Object) {
@@ -157,15 +159,13 @@ export class ProcessData {
 
         this.profilMaterial = this.params['profilMaterial']
         this.profilModel = EnumProfilModel[this.params['profilModel'] as string]
-
+        console.log(typeof this.params['width'])
         this.width = parseInt(this.params['width'])
         this.height = parseInt(this.params['height'])
 
-        this.hasRollerShutter = this.params['checkBoxShtora'] === 'on'
-        this.hasKapak = this.params['checkBoxKapak'] === 'on'
+        this.shutter = this.params['shutter']
         this.hasMreja = this.params['checkBoxMreja'] === 'on'
 
-        console.log(this.params['contact'])
 
     }
 
@@ -181,16 +181,15 @@ export class ProcessData {
         let widthKrilo = this.width
 
         // findheightKutiqShotora priemam za 1
-        let heightKrilo = this.hasRollerShutter ?
+        let heightKrilo = this.shutter === 'rollerShutter' ?
             this.height - 1 : this.height
 
         this.krilo = new Krilo(this.snimkaId, this.profilModel, widthKrilo, heightKrilo)
 
 
 
-        //produce rollerShutter
-        if (this.hasRollerShutter) {
-
+        if (this.shutter === 'rollerShutter') {
+            console.log('roletna')
             let widthRollerShutter = this.width
             let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
 
@@ -201,9 +200,20 @@ export class ProcessData {
                 widthRollerShutter,
                 heightRollerShutter)
         }
-        //produce rollerShutter
-        else if (this.hasKapak) {
-            console.log('ima kapak')
+        else if (this.shutter === 'normalShutter') {
+            console.log('normana')
+            let widthRollerShutter = this.width
+            let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
+
+            let selectedShtora = this.params['selectShtora']
+            this.rollerShutter = new RollerShutter(
+                this.profilMaterial,
+                selectedShtora,
+                widthRollerShutter,
+                heightRollerShutter)
+        }
+        else if (this.shutter === 'noShutter') {
+            console.log('nqma')
             let widthRollerShutter = this.width
             let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
 

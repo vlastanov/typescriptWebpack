@@ -2,12 +2,88 @@ import Promise from "ts-promise";
 
 export class Utils {
 
+    shtori3() {
+
+        let rollerShutter = $('#checkBoxShtora')
+        let normalShutter = $('#checkBoxKapak')
+        let noShutter = $('#radioBoxEmpty')
+
+        let selectedRollerShutter = $('#forselectShtora')
+        let selectedNormalShutter = $('#forselectKapakRadio')
+
+        rollerShutter.change(function () {
+            if (rollerShutter.is(':checked')) {
+                selectedRollerShutter.removeClass('hideSelect')
+                selectedNormalShutter.addClass('hideSelect')
+            }
+        });
+
+        normalShutter.change(function () {
+            if (normalShutter.is(':checked')) {
+                selectedRollerShutter.addClass('hideSelect')
+                selectedNormalShutter.removeClass('hideSelect')
+            }
+        });
+
+        noShutter.change(function () {
+            if (noShutter.is(':checked')) {
+                selectedRollerShutter.addClass('hideSelect')
+                selectedNormalShutter.addClass('hideSelect')
+            }
+        });
+    }
+
+    staklopeket2() {
+
+        let dvoen = $('#staklopaketDvoen')
+        let troen = $('#staklopaketTroen')
+        let panel = $('#staklopaketPanel')
+        let noStaklopaket = $('#radioBoxEmpty')
+
+        let selectedDvoen = $('#dvoenStaklopaketContainer')
+        let selectedTroen = $('#troenStaklopaketContainer')
+        let selectedPanel = $('#panelStaklopaketContainer')
+
+        dvoen.change(function () {
+            if (dvoen.is(':checked')) {
+                selectedDvoen.removeClass('hideSelect')
+                selectedTroen.addClass('hideSelect')
+                selectedPanel.addClass('hideSelect')
+            }
+        });
+
+        troen.change(function () {
+            if (troen.is(':checked')) {
+                selectedTroen.removeClass('hideSelect')
+                selectedDvoen.addClass('hideSelect')
+                selectedPanel.addClass('hideSelect')
+            }
+        });
+
+        panel.change(function () {
+            if (panel.is(':checked')) {
+                selectedPanel.removeClass('hideSelect')
+                selectedDvoen.addClass('hideSelect')
+                selectedTroen.addClass('hideSelect')
+            }
+        });
+
+        noStaklopaket.change(function () {
+            if (noStaklopaket.is(':checked')) {
+                selectedDvoen.addClass('hideSelect')
+                selectedTroen.addClass('hideSelect')
+                selectedPanel.addClass('hideSelect')
+            }
+        });
+    }
+
     shtori2() {
         $('#forselectShtora').html('')
         $('#forselectKapakRadio').html('')
         $('#checkBoxShtora').change(function () {
 
             if ($('#checkBoxShtora').is(':checked')) {
+
                 let option1 = $(`<option value="overframe">надградена</option>`)
                 let option2 = $(`<option value="frontframe">предна</option>`)
                 let select = $(`<select class="form-control" name="selectShtora" id="selectShtora"></select>`)
@@ -47,47 +123,6 @@ export class Utils {
 
     }
 
-    // shtori() {
-    //     $('#checkBoxShtora').change(function () {
-
-
-    //         if ($('#checkBoxShtora').is(':checked')) {
-    //             let option1 = $(`<option value="overframe">надградена</option>`)
-    //             let option2 = $(`<option value="frontframe">предна</option>`)
-    //             let select = $(`<select class="form-control" name="selectShtora" id="selectShtora"></select>`)
-    //             select
-    //                 .append(option1)
-    //                 .append(option2)
-    //             let root = $('#forselect')
-    //                 .append(select)
-
-    //             // console.log(root.html())
-    //         } else {
-    //             $('#forselect').html('')
-    //         }
-    //     });
-    // }
-
-    // kapaci() {
-    //     $('#checkBoxKapak').change(function () {
-
-    //         if ($('#checkBoxKapak').is(':checked')) {
-    //             let option1 = $(`<option value="kapak1">капак1</option>`)
-    //             let option2 = $(`<option value="kapak2">капак2</option>`)
-    //             let select = $(`<select class="form-control" name="selectKapak" id="selectKapak"></select>`)
-    //             select
-    //                 .append(option1)
-    //                 .append(option2)
-    //             let root = $('#forselectKapak')
-    //                 .append(select)
-
-    //             console.log(root.html())
-    //         } else {
-    //             $('#forselectKapak').html('')
-    //         }
-    //     });
-    // }
-
     mreji() {
         $('#checkBoxMreja').change(function () {
 
@@ -111,9 +146,9 @@ export class Utils {
 
     mestaklopaketi() {
 
-        $('#staklopaket').change(function () {
+        $('#staklopaket1').change(function () {
 
-            let value = $('#staklopaket').val()
+            let value = $('#staklopaket1').val()
             let selectProfil = $('#profilModel').val()
 
             if (value === 'dvoen') {

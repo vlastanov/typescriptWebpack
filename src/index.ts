@@ -140,16 +140,22 @@ $(() => {
                     ctx.clients = clients
                     ctx.loadPartials({
                         header: './templates/common/header.hbs',
+                        profilMaterial: './templates/frames/create/formElements/profilMaterial.hbs',
+                        width: './templates/frames/create/formElements/width.hbs',
+                        height: './templates/frames/create/formElements/height.hbs',
+                        staklopaket: './templates/frames/create/formElements/staklopaket.hbs',
+                        shutter: './templates/frames/create/formElements/shutter.hbs',
+                        mreja: './templates/frames/create/formElements/mreja.hbs',
                         createForm: './templates/frames/create/createForm.hbs',
                         client: './templates/frames/clients/frameClient.hbs',
                     }).then(function () {
                         this.partial('./templates/frames/create/createPage.hbs')
                             .then(function () {
+                                
                                 utils.izberiProfilPoMaterial()
-                                utils.mestaklopaketi()
-                                // utils.shtori()
-                                // utils.kapaci()
-                                utils.shtori2()
+                                // utils.mestaklopaketi()
+                                utils.staklopeket2()
+                                utils.shtori3()
                                 utils.mreji()
                             })
 
