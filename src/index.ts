@@ -5,9 +5,6 @@ import {
 } from "./typescriptFiles/frameClasses";
 
 
-
-
-
 $(() => {
 
     let utils = new Utils()
@@ -150,7 +147,9 @@ $(() => {
                             .then(function () {
                                 utils.izberiProfilPoMaterial()
                                 utils.mestaklopaketi()
-                                utils.shtori()
+                                // utils.shtori()
+                                // utils.kapaci()
+                                utils.shtori2()
                                 utils.mreji()
                             })
 

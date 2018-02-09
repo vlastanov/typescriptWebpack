@@ -2,9 +2,10 @@ import Promise from "ts-promise";
 
 export class Utils {
 
-    shtori() {
+    shtori2() {
+        $('#forselectShtora').html('')
+        $('#forselectKapakRadio').html('')
         $('#checkBoxShtora').change(function () {
-
 
             if ($('#checkBoxShtora').is(':checked')) {
                 let option1 = $(`<option value="overframe">надградена</option>`)
@@ -13,15 +14,79 @@ export class Utils {
                 select
                     .append(option1)
                     .append(option2)
-                let root = $('#forselect')
+                let root = $('#forselectShtora')
                     .append(select)
 
-                // console.log(root.html())
-            } else {
-                $('#forselect').html('')
+                $('#forselectKapakRadio').html('')
             }
         });
+
+        $('#checkBoxKapak').change(function () {
+            if ($('#checkBoxKapak').is(':checked')) {
+                let option1 = $(`<option value="kapak1">капак1</option>`)
+                let option2 = $(`<option value="kapak2">капак2</option>`)
+                let select = $(`<select class="form-control" name="selectKapak" id="selectKapak"></select>`)
+                select
+                    .append(option1)
+                    .append(option2)
+                let root = $('#forselectKapakRadio')
+                    .append(select)
+
+                $('#forselectShtora').html('')
+            }
+        });
+
+
+
+        $('#radioBoxEmpty').change(function () {
+            if ($('#radioBoxEmpty').is(':checked')) {
+                $('#forselectShtora').html('')
+                $('#forselectKapakRadio').html('')
+            }
+        });
+
     }
+
+    // shtori() {
+    //     $('#checkBoxShtora').change(function () {
+
+
+    //         if ($('#checkBoxShtora').is(':checked')) {
+    //             let option1 = $(`<option value="overframe">надградена</option>`)
+    //             let option2 = $(`<option value="frontframe">предна</option>`)
+    //             let select = $(`<select class="form-control" name="selectShtora" id="selectShtora"></select>`)
+    //             select
+    //                 .append(option1)
+    //                 .append(option2)
+    //             let root = $('#forselect')
+    //                 .append(select)
+
+    //             // console.log(root.html())
+    //         } else {
+    //             $('#forselect').html('')
+    //         }
+    //     });
+    // }
+
+    // kapaci() {
+    //     $('#checkBoxKapak').change(function () {
+
+    //         if ($('#checkBoxKapak').is(':checked')) {
+    //             let option1 = $(`<option value="kapak1">капак1</option>`)
+    //             let option2 = $(`<option value="kapak2">капак2</option>`)
+    //             let select = $(`<select class="form-control" name="selectKapak" id="selectKapak"></select>`)
+    //             select
+    //                 .append(option1)
+    //                 .append(option2)
+    //             let root = $('#forselectKapak')
+    //                 .append(select)
+
+    //             console.log(root.html())
+    //         } else {
+    //             $('#forselectKapak').html('')
+    //         }
+    //     });
+    // }
 
     mreji() {
         $('#checkBoxMreja').change(function () {
@@ -50,7 +115,7 @@ export class Utils {
 
             let value = $('#staklopaket').val()
             let selectProfil = $('#profilModel').val()
-            
+
             if (value === 'dvoen') {
                 let option1 = $(`<option value="wk">Бяло+Ка</option>`)
                 let option2 = $(`<option value="ww">Бяло+Бяло</option>`)

@@ -145,7 +145,9 @@ export class ProcessData {
     profilModel: EnumProfilModel
     width: number
     height: number
+
     hasRollerShutter: boolean
+    hasKapak: boolean
     hasMreja: boolean
 
     constructor(private params: Object) {
@@ -160,7 +162,10 @@ export class ProcessData {
         this.height = parseInt(this.params['height'])
 
         this.hasRollerShutter = this.params['checkBoxShtora'] === 'on'
+        this.hasKapak = this.params['checkBoxKapak'] === 'on'
         this.hasMreja = this.params['checkBoxMreja'] === 'on'
+
+        console.log(this.params['contact'])
 
     }
 
@@ -186,6 +191,19 @@ export class ProcessData {
         //produce rollerShutter
         if (this.hasRollerShutter) {
 
+            let widthRollerShutter = this.width
+            let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
+
+            let selectedShtora = this.params['selectShtora']
+            this.rollerShutter = new RollerShutter(
+                this.profilMaterial,
+                selectedShtora,
+                widthRollerShutter,
+                heightRollerShutter)
+        }
+        //produce rollerShutter
+        else if (this.hasKapak) {
+            console.log('ima kapak')
             let widthRollerShutter = this.width
             let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
 

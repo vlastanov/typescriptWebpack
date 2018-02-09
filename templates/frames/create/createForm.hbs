@@ -13,7 +13,7 @@
             {{/each}}
         </select>
     </div>
-    
+
 
     <div class="form-group">
         <label for="profilMaterial">Избери Материал: </label>
@@ -49,15 +49,39 @@
 
     </div>
 
+    
+
+    <p>Please select your preferred contact method:</p>
+    <div>
+        <input type="radio" id="checkBoxShtora" name="contact" value="shtora">
+        <label for="checkBoxShtora">Щора</label>
+        <div id="forselectShtora"></div>
+        
+
+        <input type="radio" id="checkBoxKapak" name="contact" value="phone">
+        <label for="checkBoxKapak">Капаци</label>
+        <div id="forselectKapakRadio"></div>
+        
+
+        <input type="radio" id="radioBoxEmpty" name="contact" value="mail">
+        <label for="radioBoxEmpty">Празно</label>
+    </div>
+
     <div class="form-group">
         <label for="checkBoxShtora">Щора: </label>
-        <input id="checkBoxShtora" type="checkbox" name="checkBoxShtora" /> 
+        <input id="checkBoxShtora" type="checkbox" name="checkBoxShtora" />
         <div id="forselect"></div>
     </div>
 
     <div class="form-group">
+        <label for="checkBoxKapak">Капаци: </label>
+        <input id="checkBoxKapak" type="checkbox" name="checkBoxKapak" />
+        <div id="forselectKapak"></div>
+    </div>
+
+    <div class="form-group">
         <label for="checkBoxMreja">Мрежа: </label>
-        <input id="checkBoxMreja" type="checkbox" name="checkBoxMreja" /> 
+        <input id="checkBoxMreja" type="checkbox" name="checkBoxMreja" />
         <div id="forSelectMreja"></div>
     </div>
 
