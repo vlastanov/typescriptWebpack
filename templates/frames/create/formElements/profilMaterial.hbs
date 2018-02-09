@@ -1,9 +1,28 @@
-<div class="form-group">
-        <label for="profilMaterial">Избери Материал: </label>
-        <select class="form-control" name="profilMaterial" id="profilMaterial">
-            <option value=""></option>
-            <option value="pvc">PVC</option>
-            <option value="aluminium">Aluminium</option>
+<div>
+    <p>Избери Материал: </p>
+
+    <input type="radio" id="pvcMaterial" name="frameMaterial" value="pvc">
+    <label for="pvcMaterial">Pvc</label>
+
+    <div class="hideSelect" id="pvcContainer">
+        <select class="form-control" name="pvc" id="pvc">
+            <option value="kbe">KBE</option>
+            <option value="kommerling76">Kommerling 76</option>
         </select>
-        <div id="selectProfilPanel"></div>
     </div>
+
+
+    <input type="radio" id="aluminiumMaterial" name="frameMaterial" value="aluminium">
+    <label for="aluminiumMaterial">Aluminium</label>
+
+    <div class="hideSelect" id="aluminiumContainer">
+        <select class="form-control" name="aluminium" id="aluminium">
+            <option value="E1000">E1000</option>
+            <option value="E75">E75</option>
+        </select>
+    </div>
+
+
+    <input type="radio" id="radioBoxEmpty" name="frameMaterial" value="noMaterial">
+    <label for="radioBoxEmpty">Празно</label>
+</div>

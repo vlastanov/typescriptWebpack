@@ -1,21 +1,8 @@
-{{!--
-<div class="form-group">
-    <label for="staklopaket">Стаклопакет: </label>
-    <select class="form-control" name="staklopaket" id="staklopaket">
-        <option value=""></option>
-        <option value="dvoen">Двоен</option>
-        <option value="troen">Троен</option>
-    </select>
-    <div class="hideSelect" id="selectGlassPanel">
-
-    </div>
-</div> --}}
-
-
 <div>
 
-    <input type="radio" id="staklopaketDvoen" name="staklopaket" value="Dvoen">
+    <input type="radio" id="staklopaketDvoen" name="fillingMaterial" value="dvoen">
     <label for="staklopaketDvoen">Двоен</label>
+
     <div class="hideSelect" id="dvoenStaklopaketContainer">
         <select class="form-control" name="selectDvoen" id="selectDvoen">
             <option value="wk">Бяло+Ка</option>
@@ -23,8 +10,9 @@
         </select>
     </div>
 
-    <input type="radio" id="staklopaketTroen" name="staklopaket" value="Troen">
+    <input type="radio" id="staklopaketTroen" name="fillingMaterial" value="troen">
     <label for="staklopaketTroen">Троен</label>
+
     <div class="hideSelect" id="troenStaklopaketContainer">
         <select class="form-control" name="selectTroen" id="selectTroen">
             <option value="wwk">Бяло+Бяло+Ка</option>
@@ -32,26 +20,15 @@
         </select>
     </div>
 
-    <input type="radio" id="staklopaketPanel" name="staklopaket" value="panel">
+    <input type="radio" id="staklopaketPanel" name="fillingMaterial" value="panel">
     <label for="staklopaketPanel">Панел</label>
+
     <div class="hideSelect" id="panelStaklopaketContainer">
         <select class="form-control" name="selectPanel" id="selectPanel">
             <option value="p1">Панел 1</option>
             <option value="p2">Панел 2</option>
         </select>
     </div>
-
-
-
-    {{!--
-    <input type="radio" id="staklopaketDvoen" name="shutter" value="rollerShutter">
-    <label for="staklopaketDvoen">Двоен</label>
-    <div class="hideSelect" id="selectDvoenStaklopaket">
-        <select class="form-control" name="selectShtora" id="selectShtora">
-            <option value="wk">Бяло+Ка</option>
-            <option value="ww">Бяло+Бяло</option>
-        </select>
-    </div> --}}
 
 
     <input type="radio" id="radioBoxEmpty" name="staklopaket" value="noStaklopaket">

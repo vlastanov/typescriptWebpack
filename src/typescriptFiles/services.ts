@@ -2,24 +2,55 @@ import Promise from "ts-promise";
 
 export class Utils {
 
-    shtori3() {
+    frameMaterials() {
 
-        let rollerShutter = $('#checkBoxShtora')
-        let normalShutter = $('#checkBoxKapak')
+        let pvc = $('#pvcMaterial')
+        let aluminium = $('#aluminiumMaterial')
         let noShutter = $('#radioBoxEmpty')
 
-        let selectedRollerShutter = $('#forselectShtora')
-        let selectedNormalShutter = $('#forselectKapakRadio')
+        let pvcContainer = $('#pvcContainer')
+        let aluminiumContainer = $('#aluminiumContainer')
 
-        rollerShutter.change(function () {
-            if (rollerShutter.is(':checked')) {
+        pvc.change(function () {
+            if (pvc.is(':checked')) {
+                pvcContainer.removeClass('hideSelect')
+                aluminiumContainer.addClass('hideSelect')
+            }
+        });
+
+        aluminium.change(function () {
+            if (aluminium.is(':checked')) {
+                pvcContainer.addClass('hideSelect')
+                aluminiumContainer.removeClass('hideSelect')
+            }
+        });
+
+        noShutter.change(function () {
+            if (noShutter.is(':checked')) {
+                pvcContainer.addClass('hideSelect')
+                aluminiumContainer.addClass('hideSelect')
+            }
+        });
+    }
+
+    shutters() {
+
+        let roller = $('#rollerShutter')
+        let wingShutter = $('#wingShutter')
+        let noShutter = $('#shutterEmpty')
+
+        let selectedRollerShutter = $('#rollerContainer')
+        let selectedNormalShutter = $('#wingShutterContainer')
+
+        roller.change(function () {
+            if (roller.is(':checked')) {
                 selectedRollerShutter.removeClass('hideSelect')
                 selectedNormalShutter.addClass('hideSelect')
             }
         });
 
-        normalShutter.change(function () {
-            if (normalShutter.is(':checked')) {
+        wingShutter.change(function () {
+            if (wingShutter.is(':checked')) {
                 selectedRollerShutter.addClass('hideSelect')
                 selectedNormalShutter.removeClass('hideSelect')
             }
@@ -33,7 +64,8 @@ export class Utils {
         });
     }
 
-    staklopeket2() {
+    //да премахна селекта. Не е нужен, защото стаклото се определя от профила
+    fillingMaterials() {
 
         let dvoen = $('#staklopaketDvoen')
         let troen = $('#staklopaketTroen')
@@ -77,52 +109,6 @@ export class Utils {
         });
     }
 
-    shtori2() {
-        $('#forselectShtora').html('')
-        $('#forselectKapakRadio').html('')
-        $('#checkBoxShtora').change(function () {
-
-            if ($('#checkBoxShtora').is(':checked')) {
-
-                let option1 = $(`<option value="overframe">надградена</option>`)
-                let option2 = $(`<option value="frontframe">предна</option>`)
-                let select = $(`<select class="form-control" name="selectShtora" id="selectShtora"></select>`)
-                select
-                    .append(option1)
-                    .append(option2)
-                let root = $('#forselectShtora')
-                    .append(select)
-
-                $('#forselectKapakRadio').html('')
-            }
-        });
-
-        $('#checkBoxKapak').change(function () {
-            if ($('#checkBoxKapak').is(':checked')) {
-                let option1 = $(`<option value="kapak1">капак1</option>`)
-                let option2 = $(`<option value="kapak2">капак2</option>`)
-                let select = $(`<select class="form-control" name="selectKapak" id="selectKapak"></select>`)
-                select
-                    .append(option1)
-                    .append(option2)
-                let root = $('#forselectKapakRadio')
-                    .append(select)
-
-                $('#forselectShtora').html('')
-            }
-        });
-
-
-
-        $('#radioBoxEmpty').change(function () {
-            if ($('#radioBoxEmpty').is(':checked')) {
-                $('#forselectShtora').html('')
-                $('#forselectKapakRadio').html('')
-            }
-        });
-
-    }
-
     mreji() {
         $('#checkBoxMreja').change(function () {
 
@@ -142,68 +128,6 @@ export class Utils {
                 $('#forSelectMreja').html('')
             }
         });
-    }
-
-    mestaklopaketi() {
-
-        $('#staklopaket1').change(function () {
-
-            let value = $('#staklopaket1').val()
-            let selectProfil = $('#profilModel').val()
-
-            if (value === 'dvoen') {
-                let option1 = $(`<option value="wk">Бяло+Ка</option>`)
-                let option2 = $(`<option value="ww">Бяло+Бяло</option>`)
-                let select = $(`<select class="form-control" name="selectGlass" id="selectGlass"></select>`)
-                select
-                    .append(option1)
-                    .append(option2)
-                let root = $('#selectGlassPanel')
-                    .append(select)
-
-                // console.log(root.html())
-            } else if (value === 'troen') {
-                // console.log('troen')
-
-            } else if (value === '') {
-                console.log('troen')
-                $('#selectGlassPanel').html('')
-
-            }
-        })
-    }
-
-    izberiProfilPoMaterial() {
-        $('#profilMaterial').change(function () {
-
-            let value = $('#profilMaterial').val()
-            if (value === 'pvc') {
-                let option1 = $(`<option value="kbe">KBE</option>`)
-                let option2 = $(`<option value="kommerling76">Kommerling 76</option>`)
-                let select = $(`<select  class="form-control" name="profilModel" id="profilModel"></select>`)
-
-                // $("#foo").bind("click", function () {
-                //     alert("User clicked on 'foo.'");
-                // });
-
-                select
-                    // .bind('change', function () {
-                    //     alert("User clicked on 'foo.'");
-                    // })
-                    .append(option1)
-                    .append(option2)
-                let root = $('#selectProfilPanel')
-                    .append(select)
-
-                // console.log(root.html())
-            } else if (value === 'aluminium') {
-                console.log('alminum profils')
-
-            } else if (value === '') {
-                $('#selectProfilPanel').html('')
-
-            }
-        })
     }
 }
 

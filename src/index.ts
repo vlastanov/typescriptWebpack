@@ -151,11 +151,9 @@ $(() => {
                     }).then(function () {
                         this.partial('./templates/frames/create/createPage.hbs')
                             .then(function () {
-                                
-                                utils.izberiProfilPoMaterial()
-                                // utils.mestaklopaketi()
-                                utils.staklopeket2()
-                                utils.shtori3()
+                                utils.frameMaterials()
+                                utils.fillingMaterials()
+                                utils.shutters()
                                 utils.mreji()
                             })
 

@@ -32,9 +32,19 @@ export enum EnumKolonki {
     fourSides
 }
 
-export enum EnumProfilModel {
-    kbe,
-    kommerling76
+export enum EnumFrameModel {
+    kbe = 'kbe',
+    kommerling76 = 'kommerling76',
+    E1000 = 'E1000',
+    E75 = 'E75',
+}
+
+export enum EnumShutterModel {
+    buildOn = 'buildOn',
+    buildIn = 'buildIn',
+    kapak1 = 'kapak1',
+    kapak2 = 'kapak2',
+
 }
 
 
@@ -49,7 +59,7 @@ interface IProfilApplicataionAndType {
 }
 export class RollerShutter {
     constructor(private material: string,
-        private selectedType: string,
+        private selectedType: EnumShutterModel,
         private width: number,
         private height: number) { }
 }
@@ -82,7 +92,7 @@ export class SectionFrame implements IProfilSectionDetails, IProfilApplicataionA
 
 
 export class Kasa {
-    constructor(private snimkaId, private profilModel: EnumProfilModel, private typeKasa: EnumKasa, private width: number, private height: number) {
+    constructor(private snimkaId, private profilModel: EnumFrameModel, private typeKasa: EnumKasa, private width: number, private height: number) {
     }
 }
 
@@ -93,7 +103,7 @@ export class Krilo {
 
     constructor(
         private snimkaId: string,
-        private profilModel: EnumProfilModel,
+        private profilModel: EnumFrameModel,
         private width: number,
         private height: number) {
         this.processKriloDirection()
@@ -116,13 +126,13 @@ export class Krilo {
 export class WindowSystemBasic {
     // ledges: EnumLedges
     constructor(
-        private profilModel: EnumProfilModel, private kasa: Kasa, private glavnoKrilo: Krilo) {
+        private profilModel: EnumFrameModel, private kasa: Kasa, private glavnoKrilo: Krilo) {
     }
 }
 
 export class EdnoKrilo extends WindowSystemBasic {
     constructor(
-        profilModel: EnumProfilModel,
+        profilModel: EnumFrameModel,
         kasa: Kasa,
         glavnoKrilo: Krilo,
         private rollerShutter?: RollerShutter,
@@ -141,39 +151,52 @@ export class ProcessData {
     kasa: Kasa
 
     snimkaId: string
-    profilMaterial: string
-    profilModel: EnumProfilModel
+    frameMaterial: string
+    frameModel: EnumFrameModel
+
     width: number
     height: number
 
     shutter: string
+    shutterModel: EnumShutterModel
 
-    // hasRollerShutter: boolean
-    // hasKapak: boolean
     hasMreja: boolean
 
     constructor(private params: Object) {
 
         this.snimkaId = this.params['snimkaId']
-        let selectGlass = this.params['selectGlass']
+        let fillingMaterial = this.params['fillingMaterial']
 
-        this.profilMaterial = this.params['profilMaterial']
-        this.profilModel = EnumProfilModel[this.params['profilModel'] as string]
-        console.log(typeof this.params['width'])
+        this.produceFrameModel()
+        this.produceShutterModel()
+
+
         this.width = parseInt(this.params['width'])
         this.height = parseInt(this.params['height'])
 
-        this.shutter = this.params['shutter']
+
         this.hasMreja = this.params['checkBoxMreja'] === 'on'
 
 
+    }
+    produceFrameModel() {
+        this.frameMaterial = this.params['frameMaterial']
+        this.frameModel =
+            EnumFrameModel[EnumFrameModel[this.params[this.frameMaterial]]]
+
+        // console.log(this.frameModel)
+    }
+    produceShutterModel() {
+        this.shutter = this.params['shutter']
+        this.shutterModel = EnumShutterModel[EnumShutterModel[this.params[this.shutter]]]
+        // console.log(this.shutterModel)
     }
 
     produceKasa() {
         let widthKasa = this.width
         let heightKasa = this.height
 
-        this.kasa = new Kasa(this.snimkaId, this.profilModel, EnumKasa.normal, widthKasa, heightKasa)
+        this.kasa = new Kasa(this.snimkaId, this.frameModel, EnumKasa.normal, widthKasa, heightKasa)
     }
 
     produceRollerShutterAndMrejaKrilo() {
@@ -184,46 +207,17 @@ export class ProcessData {
         let heightKrilo = this.shutter === 'rollerShutter' ?
             this.height - 1 : this.height
 
-        this.krilo = new Krilo(this.snimkaId, this.profilModel, widthKrilo, heightKrilo)
+        this.krilo = new Krilo(this.snimkaId, this.frameModel, widthKrilo, heightKrilo)
+
+        let widthRollerShutter = this.width
+        let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
 
 
-
-        if (this.shutter === 'rollerShutter') {
-            console.log('roletna')
-            let widthRollerShutter = this.width
-            let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
-
-            let selectedShtora = this.params['selectShtora']
-            this.rollerShutter = new RollerShutter(
-                this.profilMaterial,
-                selectedShtora,
-                widthRollerShutter,
-                heightRollerShutter)
-        }
-        else if (this.shutter === 'normalShutter') {
-            console.log('normana')
-            let widthRollerShutter = this.width
-            let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
-
-            let selectedShtora = this.params['selectShtora']
-            this.rollerShutter = new RollerShutter(
-                this.profilMaterial,
-                selectedShtora,
-                widthRollerShutter,
-                heightRollerShutter)
-        }
-        else if (this.shutter === 'noShutter') {
-            console.log('nqma')
-            let widthRollerShutter = this.width
-            let heightRollerShutter = 2 //sashtiq metod resultata e this.heightShtora
-
-            let selectedShtora = this.params['selectShtora']
-            this.rollerShutter = new RollerShutter(
-                this.profilMaterial,
-                selectedShtora,
-                widthRollerShutter,
-                heightRollerShutter)
-        }
+        this.rollerShutter = new RollerShutter(
+            this.frameMaterial,
+            this.shutterModel,
+            widthRollerShutter,
+            heightRollerShutter)
 
         //produce mreja
         if (this.hasMreja) {
@@ -245,7 +239,7 @@ export class ProcessData {
         this.produceRollerShutterAndMrejaKrilo()
 
         let ednoKriloOpenTiltHingesLeft =
-            new EdnoKrilo(this.profilModel, this.kasa, this.krilo, this.rollerShutter, this.mreja)
+            new EdnoKrilo(this.frameModel, this.kasa, this.krilo, this.rollerShutter, this.mreja)
 
         // throw new Error('greshka ot ruk')
 
