@@ -1,25 +1,54 @@
-<form  action="#/catalog/create" method="post">
+<h2>
+    Create Frame</h2>
+<form action="#/catalog/create" method="post">
+    <div class="row">
+        <div class="col-md-4">
 
+            <div class="form-group">
+                <img class="hideSelect" style="width: 50%" id="testRoller" data-snimka-id="1KriloLqvoOtvarqneNaklanqne.png" src="../../../snimki/1.jpg"
+                    alt="">
+                <img style="width: 50%" id="test1" data-snimka-id="" src="" alt="">
+            </div>
+        </div>
+        <div class="col-md-8">
 
-    <div class="form-group">
-        <img id="test1" data-snimka-id="1KriloLqvoOtvarqneNaklanqne.png" src="../../../snimki/1KriloLqvoOtvarqneNaklanqne.png" alt="">
+            <div class="form-group">
+                <select name="selectClient" id="selectClient">
+                    {{#each clients}}
+                    <option value="{{name}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            {{> profilMaterial}} {{> width}} {{> height}} {{> staklopaket}} {{> shutter}} {{> mreja}}
+
+        </div>
     </div>
 
 
-    <div class="form-group">
-        <select name="selectClient" id="selectClient">
-            {{#each clients}}
-            <option value="{{name}}">{{name}}</option>
-            {{/each}}
-        </select>
-    </div>
 
-    {{> profilMaterial}} 
-    {{> width}} 
-    {{> height}} 
-    {{> staklopaket}}
-     {{> shutter}}  
-    {{> mreja}}
+
 
     <input class="btn btn-default" type="submit" value="Create Frame" />
 </form>
+
+<select id="sectionKrila">
+    <option value="ednokril">Ednokril</option>
+    <option value="dvukril">Dvukril</option>
+    <option value="hide">Hide Section</option>
+</select>
+
+<section id="ednokril">
+
+    <div id="mainEdnokril">
+        <img class="show" data-target="EdnoKriloContainer" style="width:150px" src="../../../snimki/1KriloLqvoOtvarqneNaklanqne.png"
+            alt="">
+        <img class="show" data-target="EdnoKrilStatilDelitelContainer" style="width:150px" src="../../snimki/3.jpg" alt="">
+    </div>
+</section>
+<section id="dvukril">
+    <div id="mainDvukril">
+        <img class="show" data-target="DveKrilaContainer" style="width:150px" src="../../snimki/2.jpg" alt="">
+    </div>
+</section>
+<section id="hide">No Pictures</section>

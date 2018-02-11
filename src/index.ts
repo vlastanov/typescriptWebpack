@@ -1,12 +1,8 @@
 import { Auth, FramesService, ClientsService, Utils } from "./typescriptFiles/services"
-import {
-    EdnoKrilo, 
-    Krilo, Kasa, RollerShutter, ProcessData, 
-} from "./typescriptFiles/frameClasses";
+import { ProcessData, } from "./typescriptFiles/frameClasses";
 
 
 $(() => {
-
     let utils = new Utils()
 
     const app = Sammy('#main', function () {
@@ -120,6 +116,7 @@ $(() => {
                 .then((frames) => {
                     // ctx.hasNoTeam = sessionStorage.getItem('teamId') === null
                     //     || sessionStorage.getItem('teamId') === 'undefined'
+                    console.log('here')
                     ctx.frames = frames
                     ctx.loadPartials({
                         header: './templates/common/header.hbs',
@@ -155,6 +152,24 @@ $(() => {
                                 utils.fillingMaterials()
                                 utils.shutters()
                                 utils.mreji()
+                                $('section').hide()
+
+                                let linksDvukril = $('#mainDvukril').find('img[data-target]')
+                                let linksEdnokril = $('#mainEdnokril').find('img[data-target]')
+
+                                linksDvukril.click(navigateTo)
+                                linksEdnokril.click(navigateTo)
+                                function navigateTo() {
+                                    let linkSrc = $(this).attr('src')
+                                    let dataSnimkaId = $(this).attr('data-target')
+                                    $('#test1').attr('src', linkSrc)
+                                    $('#test1').attr('data-snimka-id', dataSnimkaId)
+                                }
+                                $('#sectionKrila').on('change', function (e) {
+                                    $('section').hide()
+                                    let d = $(e.currentTarget).val()
+                                    $('#' + d).show()
+                                })
                             })
 
                     })
@@ -167,18 +182,21 @@ $(() => {
             ctx.params['snimkaId'] = snimkaId
 
             let output = new ProcessData(ctx.params)
-
+            let f
             try {
+                f = JSON.stringify(output.produceOutput())
                 console.log(output.produceOutput())
-                
+
             } catch (error) {
                 console.log(error)
                 auth.showError(error.message);
             }
 
             // framesService
-            //     .createFrame(width, height, client)
+            //     // .createFrame(width, height, client)
+            //     .createFrame2(f)
             //     .then(function (teamInfo) {
+
             //         auth.showInfo('Frame Has been created')
             //         ctx.redirect('#/catalog')
             //     })

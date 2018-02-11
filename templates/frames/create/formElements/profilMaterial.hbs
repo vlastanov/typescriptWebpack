@@ -1,28 +1,44 @@
-<div>
-    <p>Избери Материал: </p>
+<div style='border: 1px solid black'>
+    <div class="row">
+        <div class="col-md-3">
+            <p>Избери Материал: </p>
+        </div>
+        <div class="col-md-9">
 
-    <input type="radio" id="pvcMaterial" name="frameMaterial" value="pvc">
-    <label for="pvcMaterial">Pvc</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="radio" id="pvcMaterial" name="frameMaterial" value="pvc">
+                    <label for="pvcMaterial">Pvc</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="radio" id="aluminiumMaterial" name="frameMaterial" value="aluminium">
+                    <label for="aluminiumMaterial">Alumin</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="radio" id="radioBoxEmpty" name="frameMaterial" value="noMaterial">
+                    <label for="radioBoxEmpty">Празно</label>
+                </div>
+            </div>
+            <div class="row">
+                <div style="width: 80%" class="hideSelect" id="pvcContainer">
+                    <select class="form-control" name="pvc" id="pvc">
+                        <option value="kbe">KBE</option>
+                        <option value="kommerling76">Kommerling 76</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div style="width: 100%" class="hideSelect" id="aluminiumContainer">
+                    <select class="form-control" name="aluminium" id="aluminium">
+                        <option value="E1000">E1000</option>
+                        <option value="E75">E75</option>
+                    </select>
+                </div>
+            </div>
 
-    <div class="hideSelect" id="pvcContainer">
-        <select class="form-control" name="pvc" id="pvc">
-            <option value="kbe">KBE</option>
-            <option value="kommerling76">Kommerling 76</option>
-        </select>
+
+        </div>
     </div>
 
 
-    <input type="radio" id="aluminiumMaterial" name="frameMaterial" value="aluminium">
-    <label for="aluminiumMaterial">Aluminium</label>
-
-    <div class="hideSelect" id="aluminiumContainer">
-        <select class="form-control" name="aluminium" id="aluminium">
-            <option value="E1000">E1000</option>
-            <option value="E75">E75</option>
-        </select>
-    </div>
-
-
-    <input type="radio" id="radioBoxEmpty" name="frameMaterial" value="noMaterial">
-    <label for="radioBoxEmpty">Празно</label>
 </div>

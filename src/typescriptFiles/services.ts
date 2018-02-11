@@ -34,7 +34,6 @@ export class Utils {
     }
 
     shutters() {
-
         let roller = $('#rollerShutter')
         let wingShutter = $('#wingShutter')
         let noShutter = $('#shutterEmpty')
@@ -46,6 +45,7 @@ export class Utils {
             if (roller.is(':checked')) {
                 selectedRollerShutter.removeClass('hideSelect')
                 selectedNormalShutter.addClass('hideSelect')
+                $('#testRoller').removeClass('hideSelect')
             }
         });
 
@@ -53,6 +53,8 @@ export class Utils {
             if (wingShutter.is(':checked')) {
                 selectedRollerShutter.addClass('hideSelect')
                 selectedNormalShutter.removeClass('hideSelect')
+                $('#testRoller').addClass('hideSelect')
+                
             }
         });
 
@@ -60,6 +62,7 @@ export class Utils {
             if (noShutter.is(':checked')) {
                 selectedRollerShutter.addClass('hideSelect')
                 selectedNormalShutter.addClass('hideSelect')
+                $('#testRoller').addClass('hideSelect')
             }
         });
     }
@@ -184,6 +187,17 @@ export class FramesService {
             height: height,
             client: client
         };
+        return this.requester.post('appdata', 'frames', 'kinvey', frameData);
+    }
+
+    createFrame2(jsonOutput) {
+
+        let frameData = {
+            width: jsonOutput,
+            // height: height,
+            // client: client
+        };
+        
         return this.requester.post('appdata', 'frames', 'kinvey', frameData);
     }
 
