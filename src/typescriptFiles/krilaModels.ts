@@ -10,13 +10,13 @@ export class Krilo {
         protected fillingMaterial: FillingMaterial) {
     }
 
-    processMartinas(){
-        let widthFalc=0
-        let heightFac=0
+    processMartinas() {
+        let widthFalc = 0
+        let heightFac = 0
 
-        if(heightFac<=255){
-            if(widthFalc< 
-            )
+        if (heightFac < 290) {
+        } else if (heightFac<){
+
         }
     }
     toString() {
