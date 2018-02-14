@@ -1,72 +1,134 @@
-export class FillingMaterial {
-    constructor(private userInputParams: Object) {
-        let snimkaId = this.userInputParams['snimkaId']
-        let fillingMaterial = this.userInputParams['fillingMaterial']
+import { FrameSystem } from "./frameSystems";
 
+export class FillingMaterial {
+
+
+    constructor(
+        public fillingMaterilaWidth: number,
+        public fillingMaterilaHeight: number,
+        public materialType: string
+    ) {
+        //da podam staklo prez konstruktura
+        let fillingMaterial = 'staklo'
+
+    }
+
+
+
+    toString() {
+        let result = {}
+
+        result['nedovarsheno'] = 'nedovarsheno'
+
+        return result
     }
 }
 export class Mreja {
-    constructor(
-        private userInputParams: Object, ) {
-        let selectedMreja = this.userInputParams['selectMreja']
+    mrejaWidth: number
+    mrejaHeight: number
 
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
+    constructor(
+        private checkBoxMreja: string,
+        private kasaWidth: number,
+        private kasaHeight: number,
+        private userInputParams: Object) {
+        this.processDimentions()
+    }
+    processDimentions() {
+        if (this.checkBoxMreja === 'on') {
+            this.mrejaWidth = this.kasaWidth
+            this.mrejaHeight = this.kasaHeight
+        } else {
+            this.mrejaWidth = 0
+            this.mrejaHeight = 0
+        }
+    }
+
+    toString() {
+        let result = {}
+
+        result['shu'] = 'dsfas'
+        return result
     }
 }
 export class RollerShutter {
 
-    shutter: string
-    shutterModel: string
+    rollerBoxWidth: number
+    rollerBoxHeight: number
 
     constructor(
-        private userInputParams: Object, ) {
-
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
+        private shutterValue: string,
+        private rollerType: string,
+        private frameSystem: FrameSystem,
+        private widthContainer: number,
+        private heightContainer: number,
+    ) {
+        console.log('here')
+        this.produceDimentions()
     }
 
-    produceShutterModel() {
-        // this.shutter = this.userInputParams['shutter']
-        // this.shutterModel = EnumShutterModel[EnumShutterModel[this.userInputParams[this.shutter]]]
-        // // console.log(this.shutterModel)
+    produceDimentions() {
+
+        if (this.shutterValue === 'roller') {
+
+            this.rollerBoxWidth = this.widthContainer
+            this.rollerBoxHeight = this.frameSystem.boxHeightLow
+
+            if ((this.rollerType === 'buildOn') && (this.heightContainer > 1500)) {
+                this.rollerBoxHeight = this.frameSystem.boxHeightHigh
+            }
+        } else {
+            this.rollerBoxWidth = 0
+            this.rollerBoxHeight = 0
+        }
     }
 
-    produceFrameModel() {
-        // this.frameMaterial = this.userInputParams['frameMaterial']
-        // this.frameModel =
-        //     EnumFrameModel[EnumFrameModel[this.userInputParams[this.frameMaterial]]]
+    toString() {
+        let result = {}
 
-        // console.log(this.frameModel)
+        result['shutter'] = 'sss'
+
+        return result
     }
 }
 
 export class SectionFrame {
     protected profilSectionWidth: number
-    protected profilSectionHeight: number
+    public profilSectionHeight: number
+    public overlapKriloKasa: number
+
 
     constructor() {
         this.produceSection()
     }
 
     produceSection() { }
-}
+    toString() {
+        let result = {}
 
-export class SectionFrame76201 extends SectionFrame {
+        result['sectionprofilSectionWidthKasa'] = this.profilSectionWidth
+        result['profilSectionHeight'] = this.profilSectionHeight
 
-    produceSection() {
-        this.profilSectionWidth = 11
-        this.profilSectionHeight = 13
+        return result
     }
 }
 
 export class SectionFrame76101 extends SectionFrame {
 
     produceSection() {
-        this.profilSectionWidth = 10
-        this.profilSectionHeight = 12
+        this.profilSectionWidth = 0
+        this.profilSectionHeight = 67
     }
 }
+export class SectionFrame76201 extends SectionFrame {
+
+    produceSection() {
+        this.profilSectionWidth = 11
+        this.profilSectionHeight = 13
+        this.overlapKriloKasa = 29
+    }
+}
+
 
 export class SectionFrame76301 extends SectionFrame {
 
@@ -80,7 +142,14 @@ export class SectionFrame76301 extends SectionFrame {
 export class SectionFrame76302 extends SectionFrame {
 
     produceSection() {
-        this.profilSectionWidth = 8
-        this.profilSectionHeight = 9
+        this.profilSectionWidth = 0
+        this.profilSectionHeight = 84
+    }
+}
+export class SectionFrame76402 extends SectionFrame {
+
+    produceSection() {
+        this.profilSectionWidth = 0
+        this.profilSectionHeight = 66
     }
 }

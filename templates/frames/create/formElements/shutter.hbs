@@ -1,26 +1,44 @@
-<div>
-    <input type="radio" id="rollerShutter" name="shutter" value="roller">
-    <label for="rollerShutter">Щора</label>
+<div >
+    <div class="row">
+        <div class="col-md-3">
+            <p>Избери : </p>
+        </div>
+        <div class="col-md-9">
 
-    <div class="hideSelect" id="rollerContainer">
-        <select class="form-control" name="roller" id="roller">
-            <option value="buildOn">надградена</option>
-            <option value="buildIn">предна</option>
-        </select>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="radio" id="rollerShutter" name="shutter" value="roller">
+                    <label for="rollerShutter">Щора</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="radio" id="wingShutter" name="shutter" value="wingSwing">
+                    <label for="wingShutter">Капаk</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="radio" id="shutterEmpty" name="shutter" value="noShutter">
+                    <label for="shutterEmpty">Празно</label>
+                </div>
+            </div>
+            <div class="row">
+                <div style="width: 80%" class="hideSelect" id="rollerContainer">
+                    <select class="form-control" name="roller" id="roller">
+                        <option value="buildOn">надградена</option>
+                        <option value="buildIn">Външна</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div style="width: 80%" class="hideSelect" id="wingShutterContainer">
+                    <select class="form-control" name="wingSwing" id="wingSwing">
+                        <option value="kapak1">капак1</option>
+                        <option value="kapak2">капак2</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
 
-    <input type="radio" id="wingShutter" name="shutter" value="wingSwing">
-    <label for="wingShutter">Капаk</label>
-
-    <div class="hideSelect" id="wingShutterContainer">
-        <select class="form-control" name="wingSwing" id="wingSwing">
-            <option value="kapak1">капак1</option>
-            <option value="kapak2">капак2</option>
-        </select>
-    </div>
-
-
-    <input type="radio" id="shutterEmpty" name="shutter" value="noShutter">
-    <label for="shutterEmpty">Празно</label>
 </div>

@@ -33,6 +33,43 @@ export class Utils {
         });
     }
 
+    frameMaterials2() {
+        let ednokril = $('#ednokril')
+        let dvukril = $('#dvukril')
+        let noSchema = $('#noSchema')
+        
+        let ednokrilSection = $('#ednokrilSection')
+        let dvukrilSection = $('#dvukrilSection')
+        let hideAll = $('#hideAll')
+        
+        ednokril.change(function () {
+            if (ednokril.is(':checked')) {
+                ednokrilSection.removeClass('hideSelect')
+                dvukrilSection.addClass('hideSelect')
+                hideAll.addClass('hideSelect')
+            }
+        });
+
+        dvukril.change(function () {            
+            if (dvukril.is(':checked')) {
+                ednokrilSection.addClass('hideSelect')
+                dvukrilSection.removeClass('hideSelect')
+                hideAll.addClass('hideSelect')
+            }
+        });
+
+        noSchema.change(function () {
+            if (noSchema.is(':checked')) {
+                ednokrilSection.addClass('hideSelect')
+                dvukrilSection.addClass('hideSelect')
+                hideAll.removeClass('hideSelect')
+
+                $('#test1').attr('src', '')
+                $('#test1').attr('data-snimka-id', '')
+            }
+        });
+    }
+
     shutters() {
         let roller = $('#rollerShutter')
         let wingShutter = $('#wingShutter')
@@ -54,7 +91,7 @@ export class Utils {
                 selectedRollerShutter.addClass('hideSelect')
                 selectedNormalShutter.removeClass('hideSelect')
                 $('#testRoller').addClass('hideSelect')
-                
+
             }
         });
 
@@ -73,7 +110,7 @@ export class Utils {
         let dvoen = $('#staklopaketDvoen')
         let troen = $('#staklopaketTroen')
         let panel = $('#staklopaketPanel')
-        let noStaklopaket = $('#radioBoxEmpty')
+        let noStaklopaket = $('#staklopaketEmpty')
 
         let selectedDvoen = $('#dvoenStaklopaketContainer')
         let selectedTroen = $('#troenStaklopaketContainer')
@@ -197,7 +234,7 @@ export class FramesService {
             // height: height,
             // client: client
         };
-        
+
         return this.requester.post('appdata', 'frames', 'kinvey', frameData);
     }
 

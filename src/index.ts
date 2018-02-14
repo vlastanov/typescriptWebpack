@@ -137,6 +137,7 @@ $(() => {
                     ctx.clients = clients
                     ctx.loadPartials({
                         header: './templates/common/header.hbs',
+                        footer: './templates/common/footer.hbs',
                         profilMaterial: './templates/frames/create/formElements/profilMaterial.hbs',
                         width: './templates/frames/create/formElements/width.hbs',
                         height: './templates/frames/create/formElements/height.hbs',
@@ -144,32 +145,36 @@ $(() => {
                         shutter: './templates/frames/create/formElements/shutter.hbs',
                         mreja: './templates/frames/create/formElements/mreja.hbs',
                         createForm: './templates/frames/create/createForm.hbs',
+                        panelSchemas: './templates/frames/create/panelSchemas.hbs',
                         client: './templates/frames/clients/frameClient.hbs',
                     }).then(function () {
                         this.partial('./templates/frames/create/createPage.hbs')
                             .then(function () {
                                 utils.frameMaterials()
+                                utils.frameMaterials2()
                                 utils.fillingMaterials()
                                 utils.shutters()
                                 utils.mreji()
-                                $('section').hide()
+                                // $('section').hide()
 
-                                let linksDvukril = $('#mainDvukril').find('img[data-target]')
-                                let linksEdnokril = $('#mainEdnokril').find('img[data-target]')
+                                let linksEdnokril = $('#ednokrilSection').find('img[data-target]')
+                                let linksDvukril = $('#dvukrilSection').find('img[data-target]')
+                                let hideAll = $('#hideAll').find('img[data-target]')
 
-                                linksDvukril.click(navigateTo)
                                 linksEdnokril.click(navigateTo)
+                                linksDvukril.click(navigateTo)
+                                hideAll.click(navigateTo)
                                 function navigateTo() {
                                     let linkSrc = $(this).attr('src')
                                     let dataSnimkaId = $(this).attr('data-target')
                                     $('#test1').attr('src', linkSrc)
                                     $('#test1').attr('data-snimka-id', dataSnimkaId)
                                 }
-                                $('#sectionKrila').on('change', function (e) {
-                                    $('section').hide()
-                                    let d = $(e.currentTarget).val()
-                                    $('#' + d).show()
-                                })
+                                // $('#sectionKrila').on('change', function (e) {
+                                //     $('section').hide()
+                                //     let d = $(e.currentTarget).val()
+                                //     $('#' + d).show()
+                                // })
                             })
 
                     })
@@ -180,13 +185,11 @@ $(() => {
         this.post('#/catalog/create', function (ctx) {
             let snimkaId = $('#test1').attr('data-snimka-id')
             ctx.params['snimkaId'] = snimkaId
-
+            console.log(ctx.params)
+            
             let output = new ProcessData(ctx.params)
-            let f
             try {
-                f = JSON.stringify(output.produceOutput())
-                console.log(output.produceOutput())
-
+               console.log(output.produceOutput())
             } catch (error) {
                 console.log(error)
                 auth.showError(error.message);

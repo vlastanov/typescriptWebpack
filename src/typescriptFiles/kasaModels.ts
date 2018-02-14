@@ -1,136 +1,56 @@
 import { SectionFrame, SectionFrame76101, FillingMaterial, SectionFrame76201 } from "./containerIngredientsElements";
-import { DelitelStatichen, Delitel, DelitelStatichenVertical } from "./delitelsModel";
+import { DelitelStatichen, Delitel, DelitelStatichenVertical, DelitelPlavasht } from "./delitelsModel";
 import { FrameSystem } from "./frameSystems";
 
-//container of other elements such as sections and fillings
 export class Kasa {
-    sectionKasa: SectionFrame
-    kasaWidth: number
-    kasaHeight: number
 
-    constructor(
-        protected sectionApplication: string,
-        protected frameSystem: FrameSystem,
-        protected userInputParams: Object, ) {
-        this.produceSections()
-        this.produceDimentions()
+    constructor(public kasaWidth: number, public kasaHeight: number, public frameSystem: FrameSystem, ) { }
+
+    toString() {
+        let result = {}
+
+        result['kasaWidth'] = this.kasaWidth
+        result['kasaHeight'] = this.kasaHeight
+
+        return result
     }
 
-    produceSections() {
-        this.sectionKasa = this.frameSystem.sectionKasa
-    }
-    produceDimentions() { }
-
-}
-
-export class KasaForEdnokril extends Kasa {
-    constructor(
-        private hingesLeft: string,
-        private schema: string,
-        sectionApplication: string,
-        frameSystem: FrameSystem,
-        userInputParams: Object, ) {
-        super(sectionApplication, frameSystem, userInputParams)
-    }
-    produceDimentions() {
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
-
-        //validation #1
-
-        let shutter = this.userInputParams['shutter']
-        let shutterModel =
-            this.userInputParams[shutter]
-
-        if (shutterModel === 'buildOn') {
-            //define height of rollerShutter by height
-            this.kasaHeight = height - 203
-
-            //validation #2
-        } else {
-            this.kasaHeight = height
-        }
-        this.kasaWidth = width
-
-    }
 }
 
 export class KasaForEdnokrilWithRightFix extends Kasa {
 
-    statichenDelitel: Delitel
-    protected fillingMaterial: FillingMaterial
+    public fillingMaterial: FillingMaterial
+    delitelStatichen: DelitelStatichenVertical
 
-    constructor(
-        private hingesLeft: string,
-        private schema: string,
-        private fillingMaterialSide: string,
-        sectionApplication: string,
-        frameSystem: FrameSystem,
-        userInputParams: Object, ) {
-        super(sectionApplication, frameSystem, userInputParams)
-        this.produceSections()
+    constructor(kasaWidth: number, kasaHeight: number, frameSystem: FrameSystem) {
+        super(kasaWidth, kasaHeight, frameSystem)
         this.produceFillingMaterial()
-    }
-    produceDimentions() {
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
-
-        //validation #1
-
-        let shutter = this.userInputParams['shutter']
-        let shutterModel =
-            this.userInputParams[shutter]
-
-        if (shutterModel === 'buildOn') {
-            //define height of rollerShutter by height
-            this.kasaHeight = height - 203
-
-            //validation #2
-        } else {
-            this.kasaHeight = height
-        }
-        this.kasaWidth = width
-
-    }
-    produceDelitels() {
-        this.statichenDelitel = new DelitelStatichenVertical(this.userInputParams) //da mu slova framSystem
+        this.delitelStatichen = new DelitelStatichenVertical(this.kasaWidth, this.kasaHeight, this.frameSystem)
     }
 
     produceFillingMaterial() {
-        this.fillingMaterial = new FillingMaterial(this.userInputParams)
+
+        let fullWidth = this.kasaWidth //1000
+        let fullHeight = this.kasaHeight
+        let debelinaNaKasata = this.frameSystem.sectionKasa.profilSectionHeight //67
+        let debelinaNaDelitelaStatichen = this.frameSystem.sectionDelitelStatichen.profilSectionHeight //84
+
+        let zastapKriloKasa = this.frameSystem.sectionKasa.overlapKriloKasa
+        let zastapKriloKasaIliDel = this.frameSystem.sectionKasa.overlapKriloKasa
+
+        let fillingMaterilaWidth = (fullWidth - (2 * debelinaNaKasata) - debelinaNaDelitelaStatichen) / 2
+        let fillingMaterilaHeight = fullHeight - (2 * debelinaNaKasata)
+
+        //da podam staklo tuk . Nujni sa mi inputDannite
+        this.fillingMaterial = new FillingMaterial(fillingMaterilaWidth, fillingMaterilaHeight, 'staklo'
+        )
     }
-}
 
-export class KasaForDveKrila extends Kasa {
-    constructor(
-        private hingesLeft: string,
-        private hingesRight: string,
-        private schemaLeft: string,
-        private schemaRight: string,
-        sectionApplication: string,
-        frameSystem: FrameSystem,
-        userInputParams: Object, ) {
-        super(sectionApplication, frameSystem, userInputParams)
-    }
-    produceDimentions() {
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
+    toString() {
+        let result = super.toString()
 
-        //validation #1
+        result['fillingMaterial'] = this.fillingMaterial.toString()
 
-        let shutter = this.userInputParams['shutter']
-        let shutterModel =
-            this.userInputParams[shutter]
-
-        if (shutterModel === 'buildOn') {
-            //define height of rollerShutter by height
-            this.kasaHeight = height - 203
-
-            //validation #2
-        } else {
-            this.kasaHeight = height
-        }
-        this.kasaWidth = width
-
+        return result
     }
 }

@@ -1,77 +1,59 @@
-import { SectionFrame76301, SectionFrame76302, SectionFrame } from "./containerIngredientsElements";
+import { SectionFrame76301, SectionFrame76302, SectionFrame, SectionFrame76402 } from "./containerIngredientsElements";
+import { FrameSystem } from "./frameSystems";
 
 export class Delitel {
 
-    protected sectionDelitel: SectionFrame
     protected lengthDelitel: number
     protected frameModel: string
 
-    constructor(protected userInputParams: Object) {
-        this.produceSections()
+    constructor(protected kasaWidth: number, protected kasaHeight: number,
+       protected frameSystem: FrameSystem, ) {
         this.produceDimentions()
     }
+    produceDimentions() { }
 
-    produceSections() {
+    toString() {
+        let result = {}
 
-        let frameMaterial = this.userInputParams['frameMaterial']
-        this.frameModel = this.userInputParams[frameMaterial]
-    }
-    produceDimentions() {
-        let height = parseInt(this.userInputParams['height'])
+        result['lengthDelitel'] = this.lengthDelitel
 
-        let shutter = this.userInputParams['shutter']
-        let shutterModel = this.userInputParams[shutter]
-
-        if (shutterModel === 'buildOn') {
-            this.lengthDelitel = height - 203 - 5
-        } else {
-            this.lengthDelitel = height
-        }
+        return result
     }
 }
 export class DelitelPlavasht extends Delitel {
 
-    constructor(userInputParams: Object) {
-        super(userInputParams)
+    constructor(kasaWidth: number, kasaHeight: number,frameSystem: FrameSystem, ) {
+        super(kasaWidth, kasaHeight,frameSystem, )
     }
 
-    produceSections() {
-        super.produceSections()
-        if (this.frameModel === 'kommerling76') {
-            this.sectionDelitel = new SectionFrame76301() //kriloVrata
-        }
+    produceDimentions() {
+        this.lengthDelitel = this.kasaHeight
     }
 }
 
 export class DelitelStatichen extends Delitel {
 
-    constructor(userInputParams: Object) {
-        super(userInputParams)
-    }
-
-    produceSections() {
-        super.produceSections()
-        if (this.frameModel === 'kommerling76') {
-            this.sectionDelitel = new SectionFrame76302() //kriloVrata
-        }
+    constructor(kasaWidth: number, kasaHeight: number,frameSystem: FrameSystem, ) {
+        super(kasaWidth, kasaHeight,frameSystem, )
     }
 }
 
-export class DelitelStatichenVertical extends Delitel {
+export class DelitelStatichenVertical extends DelitelStatichen {
 
-    constructor(userInputParams: Object) {
-        super(userInputParams)
+    constructor(kasaWidth: number, kasaHeight: number,frameSystem: FrameSystem, ) {
+        super(kasaWidth, kasaHeight,frameSystem, )
+    }
+    produceDimentions() {
+        this.lengthDelitel = this.kasaHeight
     }
 }
 
 export class DelitelStatichenHorizontal extends Delitel {
 
-    constructor(userInputParams: Object) {
-        super(userInputParams)
+    constructor(kasaWidth: number, kasaHeight: number,frameSystem: FrameSystem,) {
+        super(kasaWidth, kasaHeight,frameSystem, )
     }
-
     produceDimentions() {
-        let width = parseInt(this.userInputParams['width'])
-        this.lengthDelitel = width
+        this.lengthDelitel = this.kasaWidth
     }
 }

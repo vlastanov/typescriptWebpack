@@ -2,81 +2,30 @@ import { SectionFrame, FillingMaterial, SectionFrame76201 } from "./containerIng
 import { FrameSystem } from "./frameSystems";
 
 export class Krilo {
-
-    protected sectionKrilo: SectionFrame // ot profilModel
-    protected kriloWidth: number
-    protected kriloHeight: number
-    protected fillingMaterial: FillingMaterial
-
     constructor(protected nomerNaKrilo: number, protected direction: string, protected schema: string,
         protected sectionApplication: string,
-        protected frameSystem: FrameSystem,
-        protected userInputParams: Object, ) {
-        this.produceSections()
-        this.produceDimentions()
-        this.produceFillingMaterial()
+        public kriloWidth: number,
+        public kriloHeight: number,
+        protected sectionKrilo: SectionFrame,
+        protected fillingMaterial: FillingMaterial) {
     }
-    produceSections() {
-        this.sectionKrilo = this.frameSystem.sectionKriloProzorec
-    }
-    produceDimentions() { }
 
-    produceFillingMaterial() { }
+    processMartinas(){
+        let widthFalc=0
+        let heightFac=0
+
+        if(heightFac<=255){
+            if(widthFalc< 
+            )
+        }
+    }
     toString() {
-        return { 'width': this.kriloWidth }
-    }
-}
-export class KriloForEdnokril extends Krilo {
+        let result = {}
 
-    kriloWidth: number
-    kriloHeight: number
+        result['kriloWidth'] = this.sectionKrilo
+        result['kriloHeight'] = this.sectionKrilo
+        result['fillingMaterial'] = this.sectionKrilo.toString()
 
-    constructor(nomerNaKrilo: number, direction: string, schema: string, sectionApplication: string,
-        frameSystem: FrameSystem, userInputParams: Object, ) {
-        super(nomerNaKrilo, direction, schema, sectionApplication, frameSystem, userInputParams)
-    }
-    produceDimentions() {
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
-
-        let shutter = this.userInputParams['shutter']
-        let shutterModel = this.userInputParams[shutter]
-
-        this.kriloWidth = width;
-        if (shutterModel === 'buildOn') {
-            this.kriloHeight = height - 203 - 5
-        } else {
-            this.kriloHeight = height
-        }
-    }
-
-    produceFillingMaterial() {
-        this.fillingMaterial = new FillingMaterial(this.userInputParams)
-    }
-}
-export class KriloForDvukril extends Krilo {
-    snimkaId: string
-
-    constructor(nomerNaKrilo: number, direction: string, schema: string,
-        sectionApplication: string, frameSystem: FrameSystem, userInputParams: Object, ) {
-        super(nomerNaKrilo, direction, schema, sectionApplication, frameSystem, userInputParams)
-    }
-    produceDimentions() {
-        let width = parseInt(this.userInputParams['width'])
-        let height = parseInt(this.userInputParams['height'])
-
-        let shutter = this.userInputParams['shutter']
-        let shutterModel = this.userInputParams[shutter]
-
-        this.kriloWidth = (width - 10) / 2;
-        if (shutterModel === 'buildOn') {
-            this.kriloHeight = height - 203 - 5
-        } else {
-            this.kriloHeight = height
-        }
-    }
-
-    produceFillingMaterial() {
-        this.fillingMaterial = new FillingMaterial(this.userInputParams)
+        return result
     }
 }
