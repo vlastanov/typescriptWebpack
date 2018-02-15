@@ -50,6 +50,7 @@ export class KasaForEdnokrilWithRightFix extends Kasa {
         let result = super.toString()
 
         result['fillingMaterial'] = this.fillingMaterial.toString()
+        result['delitelStatichen'] = this.delitelStatichen.toString()
 
         return result
     }

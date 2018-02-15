@@ -2,15 +2,19 @@ import { FrameSystem } from "./frameSystems";
 
 export class FillingMaterial {
 
+    area: number
 
     constructor(
         public fillingMaterilaWidth: number,
         public fillingMaterilaHeight: number,
         public materialType: string
     ) {
-        //da podam staklo prez konstruktura
         let fillingMaterial = 'staklo'
+        this.produceArea()
+    }
 
+    produceArea() {
+        this.area = (this.fillingMaterilaWidth * this.fillingMaterilaHeight) / 1000000
     }
 
 
@@ -18,7 +22,7 @@ export class FillingMaterial {
     toString() {
         let result = {}
 
-        result['nedovarsheno'] = 'nedovarsheno'
+        result['area'] = this.area
 
         return result
     }
@@ -26,6 +30,7 @@ export class FillingMaterial {
 export class Mreja {
     mrejaWidth: number
     mrejaHeight: number
+    area: number
 
     constructor(
         private checkBoxMreja: string,
@@ -34,6 +39,7 @@ export class Mreja {
         private userInputParams: Object) {
         this.processDimentions()
     }
+
     processDimentions() {
         if (this.checkBoxMreja === 'on') {
             this.mrejaWidth = this.kasaWidth
@@ -44,10 +50,14 @@ export class Mreja {
         }
     }
 
+    produceArea() {
+        this.area = (this.mrejaWidth * this.mrejaHeight) / 1000000
+    }
+
     toString() {
         let result = {}
 
-        result['shu'] = 'dsfas'
+        result['area'] = 'area'
         return result
     }
 }
@@ -86,7 +96,7 @@ export class RollerShutter {
     toString() {
         let result = {}
 
-        result['shutter'] = 'sss'
+        result['rollerBoxHeight'] = this.rollerBoxHeight
 
         return result
     }

@@ -15,11 +15,14 @@ export class FrameContainer {
     mreja: Mreja
     //normalShutter:NormalShutter
 
+    srcId: string
+
 
     constructor(
         protected frameSystem: FrameSystem,
         protected userInputParams: Object) {
-
+        this.srcId = this.userInputParams['srcId']
+        
         this.widthContainer = parseInt(this.userInputParams['width']) || 1000
         this.heightContainer = parseInt(this.userInputParams['height']) || 1000
         this.produceRollerShutter()
@@ -65,9 +68,10 @@ export class FrameContainer {
     toString() {
         let result = {}
 
+        result['srcId'] = this.srcId
         result['kasa'] = this.kasa.toString()
         result['rollerShutter'] = this.rollerShutter.toString()
-        result['mreja'] = this.mreja
+        result['mreja'] = this.mreja.toString()
 
         return result
     }
@@ -90,15 +94,6 @@ export class EdnoKriloContainer extends FrameContainer {
         let kriloWidth = fullWidth - (2 * debelinaNaKasata) + (2 * zastap)
         let kriloHeight = fullHeight - (2 * debelinaNaKasata) + (2 * zastap)
 
-        let debelenaNaKriloto = this.frameSystem.sectionKriloProzorec.profilSectionHeight
-        let zastapStaklopaket = this.frameSystem.overlapStaklopaketKriloIliKasa
-        let materialFillingWidth = kriloWidth - (debelenaNaKriloto * 2) + (2 * zastapStaklopaket)
-        let materialFillingHeight = kriloHeight - (debelenaNaKriloto * 2) + (2 * zastapStaklopaket)
-
-        let fillingMaterial = new FillingMaterial(materialFillingWidth, materialFillingHeight, 'staklo')
-
-
-
         this.krilo = new Krilo(
             1,
             'hingesSideLeft',
@@ -106,8 +101,15 @@ export class EdnoKriloContainer extends FrameContainer {
             'kriloProzorec',
             kriloWidth,
             kriloHeight,
-            this.frameSystem.sectionKriloProzorec,
-            fillingMaterial)
+            this.frameSystem, 'staklo')
+    }
+
+    toString() {
+        let result = super.toString()
+
+        result['krilo'] = this.krilo.toString()
+
+        return result
     }
 }
 export class EdnoKrilStatilDelitelContainer extends FrameContainer {
@@ -144,14 +146,6 @@ export class EdnoKrilStatilDelitelContainer extends FrameContainer {
 
         let kriloHeight = fullHeight - (2 * debelinaNaKasata) + (2 * zastapKriloKasa)
 
-        let debelenaNaKriloto = this.frameSystem.sectionKriloProzorec.profilSectionHeight
-        let zastapStaklopaket = this.frameSystem.overlapStaklopaketKriloIliKasa
-        let materialFillingWidth = kriloWidth - (debelenaNaKriloto * 2) + (2 * zastapStaklopaket)
-        let materialFillingHeight = kriloHeight - (debelenaNaKriloto * 2) + (2 * zastapStaklopaket)
-
-        let fillingMaterial = new FillingMaterial(materialFillingWidth, materialFillingHeight, 'staklo')
-
-
         this.krilo = new Krilo(
             1,
             'hingesSideLeft',
@@ -159,8 +153,7 @@ export class EdnoKrilStatilDelitelContainer extends FrameContainer {
             'kriloProzorec',
             kriloWidth,
             kriloHeight,
-            this.frameSystem.sectionKriloProzorec,
-            fillingMaterial)
+            this.frameSystem, 'staklo')
     }
 }
 export class DveKrilaContainer extends FrameContainer {
@@ -190,13 +183,6 @@ export class DveKrilaContainer extends FrameContainer {
         let kriloHeight = 0
         kriloHeight = fullHeight - (2 * debelinaNaKasata) + (2 * zastapKriloKasa)
 
-        let debelenaNaKriloto = this.frameSystem.sectionKriloProzorec.profilSectionHeight
-        let zastapStaklopaket = this.frameSystem.overlapStaklopaketKriloIliKasa
-        let materialFillingWidth = kriloWidth - (debelenaNaKriloto * 2) + (2 * zastapStaklopaket)
-        let materialFillingHeight = kriloHeight - (debelenaNaKriloto * 2) + (2 * zastapStaklopaket)
-
-        let fillingMaterial = new FillingMaterial(materialFillingWidth, materialFillingHeight, 'staklo')
-
         this.kriloLeft =
             new Krilo(
                 2,//snimkaId
@@ -205,7 +191,7 @@ export class DveKrilaContainer extends FrameContainer {
                 'kriloProzorec',//snimkaId
                 kriloWidth,
                 kriloHeight,
-                this.frameSystem.sectionKriloProzorec, fillingMaterial
+                this.frameSystem, 'staklo'
             )
         this.kriloRight =
             new Krilo(
@@ -215,7 +201,7 @@ export class DveKrilaContainer extends FrameContainer {
                 'kriloProzorec',//snimkaId
                 kriloWidth,
                 kriloHeight,
-                this.frameSystem.sectionKriloProzorec, fillingMaterial
+                this.frameSystem, 'staklo'
             )
     }
     produceLetqshtDelitels() {
@@ -229,6 +215,7 @@ export class DveKrilaContainer extends FrameContainer {
         let result = super.toString()
         result['kriloLeft'] = this.kriloLeft.toString()
         result['kriloRight'] = this.kriloRight.toString()
+        result['plavashtDelitel'] = this.plavashtDelitel.toString()
 
         return result
     }
@@ -237,8 +224,13 @@ export class ProcessData {
 
     snimkaId: string
     frameSystem: FrameSystem
-    rollerShutter: RollerShutter
+    resultInstance: FrameContainer
 
+
+
+    //del
+    rollerShutter: RollerShutter
+    
     constructor(private params: Object) {
         this.snimkaId = this.params['snimkaId']
         this.produceFramSystem()
@@ -255,15 +247,18 @@ export class ProcessData {
 
     produceOutput() {
         // throw new Error('greshka ot ruk')
-        if (this.snimkaId === 'EdnoKriloContainer') {
+        if (this.snimkaId === '') {
             let ednoKriloOpenTiltHingesLeft = new EdnoKriloContainer(this.frameSystem, this.params)
-            return ednoKriloOpenTiltHingesLeft
+            return ednoKriloOpenTiltHingesLeft.toString()
+        } else if (this.snimkaId === 'EdnoKriloContainer') {
+            let ednoKriloOpenTiltHingesLeft = new EdnoKriloContainer(this.frameSystem, this.params)
+            return ednoKriloOpenTiltHingesLeft.toString()
         } else if (this.snimkaId === 'EdnoKrilStatilDelitelContainer') {
             let ednoKrilStatilDelitelContainer = new EdnoKrilStatilDelitelContainer(this.frameSystem, this.params)
-            return ednoKrilStatilDelitelContainer
+            return ednoKrilStatilDelitelContainer.toString()
         } else if (this.snimkaId === 'DveKrilaContainer') {
             let dveKrilaOtvarqneDqsnoNaklnanqne = new DveKrilaContainer(this.frameSystem, this.params)
-            return dveKrilaOtvarqneDqsnoNaklnanqne
+            return dveKrilaOtvarqneDqsnoNaklnanqne.toString()
         }
     }
 }

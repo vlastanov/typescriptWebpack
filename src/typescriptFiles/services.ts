@@ -37,11 +37,11 @@ export class Utils {
         let ednokril = $('#ednokril')
         let dvukril = $('#dvukril')
         let noSchema = $('#noSchema')
-        
+
         let ednokrilSection = $('#ednokrilSection')
         let dvukrilSection = $('#dvukrilSection')
         let hideAll = $('#hideAll')
-        
+
         ednokril.change(function () {
             if (ednokril.is(':checked')) {
                 ednokrilSection.removeClass('hideSelect')
@@ -50,7 +50,7 @@ export class Utils {
             }
         });
 
-        dvukril.change(function () {            
+        dvukril.change(function () {
             if (dvukril.is(':checked')) {
                 ednokrilSection.addClass('hideSelect')
                 dvukrilSection.removeClass('hideSelect')
@@ -224,16 +224,23 @@ export class FramesService {
             height: height,
             client: client
         };
+
         return this.requester.post('appdata', 'frames', 'kinvey', frameData);
     }
 
     createFrame2(jsonOutput) {
-
         let frameData = {
-            width: jsonOutput,
-            // height: height,
-            // client: client
+            srcId: jsonOutput.srcId,
+            kasa: jsonOutput.kasa,
+            krilo: jsonOutput.krilo,
+            mreja: jsonOutput.mreja,
+            rollerShutter: jsonOutput.rollerShutter,
         };
+
+        console.log(frameData)
+        // if (jsonOutput) {
+        //     throw new Error('do tuk')
+        // }
 
         return this.requester.post('appdata', 'frames', 'kinvey', frameData);
     }

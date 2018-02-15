@@ -114,9 +114,7 @@ $(() => {
 
             framesService.loadTeams()
                 .then((frames) => {
-                    // ctx.hasNoTeam = sessionStorage.getItem('teamId') === null
-                    //     || sessionStorage.getItem('teamId') === 'undefined'
-                    console.log('here')
+
                     ctx.frames = frames
                     ctx.loadPartials({
                         header: './templates/common/header.hbs',
@@ -184,37 +182,47 @@ $(() => {
         })
         this.post('#/catalog/create', function (ctx) {
             let snimkaId = $('#test1').attr('data-snimka-id')
+            let srcIdAll = $('#test1').attr('src')
+            var n = srcIdAll.lastIndexOf('/')
+            let srcId = srcIdAll.substr(n+1)
+            console.log(srcId)
+
             ctx.params['snimkaId'] = snimkaId
+            ctx.params['srcId'] = srcId
             console.log(ctx.params)
-            
+
             let output = new ProcessData(ctx.params)
-            try {
-               console.log(output.produceOutput())
-            } catch (error) {
-                console.log(error)
-                auth.showError(error.message);
-            }
+            // try {
+            //    console.log(output.produceOutput())
+            // //    output.produceOutput()
+            // } catch (error) {
+            //     console.log(error)
+            //     auth.showError(error.message);
+            // }
 
-            // framesService
-            //     // .createFrame(width, height, client)
-            //     .createFrame2(f)
-            //     .then(function (teamInfo) {
+            framesService
+                // .createFrame(width, height, client)
+                .createFrame2(output.produceOutput())
+                .then(function (teamInfo) {
 
-            //         auth.showInfo('Frame Has been created')
-            //         ctx.redirect('#/catalog')
-            //     })
-            //     .catch((e) => {
-            //         console.log(e["responseJSON"]["description"])
-            //         auth.showError(e["responseJSON"]["description"]);
-            //     })
+                    auth.showInfo('Frame Has been created')
+                    ctx.redirect('#/catalog')
+                })
+                .catch((e) => {
+                    console.log(e["responseJSON"]["description"])
+                    auth.showError(e["responseJSON"]["description"]);
+                })
         })
         this.get('#/catalog/:id', function (ctx) {
             let frameId = ctx.params.id.substr(1)
 
             framesService.loadFrameDetails(frameId)
                 .then(function (frameInfo) {
-                    ctx.height = frameInfo['height']
-                    ctx.width = frameInfo['width']
+                    ctx.kasa = frameInfo.kasa
+                    ctx.krilo = frameInfo.krilo
+                    ctx.mreja = frameInfo.mreja
+                    ctx.rollerShutter    = frameInfo.rollerShutter
+                    console.log(ctx.kasa)
                     ctx.frameId = frameId
                     ctx.isAuthor = frameInfo._acl.creator === sessionStorage.getItem('userId')
 
