@@ -1,12 +1,27 @@
 <tr>
     <th scope="row">{{_id}}</th>
     <td>
-        <img style="width: 50%" id="testRoller" data-snimka-id="1KriloLqvoOtvarqneNaklanqne.png" src="../../snimki/{{srcId}}" alt="">
+        <img style="width: 50%" id="testRoller" data-snimka-id="1KriloLqvoOtvarqneNaklanqne.png" src="../../snimki/{{instanceObject.srcId}}"
+            alt="">
     </td>
 
-    <td>{{kasa.kasaWidth}}</td>
-    <td>{{kasa.kasaHeight}}</td>
+    <td>{{instanceObject.kasa.kasaWidth}}</td>
+    <td>{{instanceObject.kasa.kasaHeight}}</td>
     <td>недовършено</td>
+    <td>
+        {{#if instanceObject.krilo}} {{instanceObject.krilo.heightOfDrajka}} {{/if}}
+        
+         {{#if instanceObject.kriloLeft}}
+         <div>
+          Лява: {{instanceObject.kriloLeft.heightOfDrajka}}
+         </div>
+<div>
+          Дясна: {{instanceObject.kriloRight.heightOfDrajka}}
+</div>
+
+        {{/if}}
+
+    </td>
     <td>
         <a href="#/catalog/:{{_id}}" class="team-box">
             Details

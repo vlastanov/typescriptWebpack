@@ -229,15 +229,20 @@ export class FramesService {
     }
 
     createFrame2(jsonOutput) {
-        let frameData = {
-            srcId: jsonOutput.srcId,
-            kasa: jsonOutput.kasa,
-            krilo: jsonOutput.krilo,
-            mreja: jsonOutput.mreja,
-            rollerShutter: jsonOutput.rollerShutter,
-        };
+        // let frameData = {
+        //     srcId: jsonOutput.srcId,
+        //     kasa: jsonOutput.kasa,
+        //     krilo: jsonOutput.krilo,
+        //     mreja: jsonOutput.mreja,
+        //     rollerShutter: jsonOutput.rollerShutter,
+        // };
 
-        console.log(frameData)
+        let frameData = {
+            snimkaId: jsonOutput.snimkaId,
+            instanceObject: jsonOutput
+        }
+
+        // console.log(frameData)
         // if (jsonOutput) {
         //     throw new Error('do tuk')
         // }
@@ -313,7 +318,7 @@ export class Auth {
         let errorBox = $('#errorBox');
         errorBox.text(message);
         errorBox.show();
-        setTimeout(() => errorBox.fadeOut(), 3000);
+        setTimeout(() => errorBox.fadeOut(), 6000);
     }
 
     showInfo(message) {

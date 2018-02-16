@@ -10,11 +10,23 @@ export class FillingMaterial {
         public materialType: string
     ) {
         let fillingMaterial = 'staklo'
+        this.checkForExceptions()
         this.produceArea()
     }
 
     produceArea() {
         this.area = (this.fillingMaterilaWidth * this.fillingMaterilaHeight) / 1000000
+    }
+
+    checkForExceptions() {
+        if (this.fillingMaterilaWidth < 100) {
+            throw new Error(`Ширината на пълнежа e ${this.fillingMaterilaWidth}.
+            Минимума е 100 мм`)
+        }
+        if (this.fillingMaterilaHeight < 100) {
+            throw new Error(`Височината на пълнежа e ${this.fillingMaterilaHeight}.
+            Минимума е 100 мм`)
+        }
     }
 
 
@@ -105,6 +117,7 @@ export class RollerShutter {
 export class SectionFrame {
     protected profilSectionWidth: number
     public profilSectionHeight: number
+    public profilSectionZab: number
     public overlapKriloKasa: number
 
 
@@ -128,6 +141,8 @@ export class SectionFrame76101 extends SectionFrame {
     produceSection() {
         this.profilSectionWidth = 0
         this.profilSectionHeight = 67
+        this.profilSectionZab = 21
+
     }
 }
 export class SectionFrame76201 extends SectionFrame {
@@ -135,7 +150,8 @@ export class SectionFrame76201 extends SectionFrame {
     produceSection() {
         this.profilSectionWidth = 11
         this.profilSectionHeight = 13
-        this.overlapKriloKasa = 29
+        this.profilSectionZab = 20
+        this.overlapKriloKasa = 8
     }
 }
 
@@ -143,8 +159,9 @@ export class SectionFrame76201 extends SectionFrame {
 export class SectionFrame76301 extends SectionFrame {
 
     produceSection() {
-        this.profilSectionWidth = 9
-        this.profilSectionHeight = 10
+        this.profilSectionWidth = 0
+        this.profilSectionHeight = 84
+        this.profilSectionZab = 21
     }
 }
 
@@ -161,5 +178,8 @@ export class SectionFrame76402 extends SectionFrame {
     produceSection() {
         this.profilSectionWidth = 0
         this.profilSectionHeight = 66
+        this.profilSectionZab = 22
+        //da se preimenuva
+        this.overlapKriloKasa = 30
     }
 }

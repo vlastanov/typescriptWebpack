@@ -4,15 +4,27 @@ import { FrameSystem } from "./frameSystems";
 export class Krilo {
 
     heightOfDrajka: number
-    materialFillingInstance: FillingMaterial
 
-    constructor(protected nomerNaKrilo: number, protected direction: string, protected schema: string,
+    materialFillingInstance: FillingMaterial
+    public kriloWidth: number
+    public kriloHeight: number
+
+    constructor(public nomerNaKrilo: number,
+        protected direction: string,
+        public schema: string,
         protected sectionApplication: string,
-        public kriloWidth: number,
-        public kriloHeight: number,
+        private kriloWidthOtvor: number,
+        private kriloHeightOtvor: number,
         protected frameSystem: FrameSystem, private fillingMaterial: string) {
+        this.produceDimentions()
         this.processMartinas()
         this.produceFillingMaterial()
+        this.produceException()
+    }
+
+    produceDimentions() {
+        this.kriloWidth = this.kriloWidthOtvor + 2 * this.frameSystem.sectionKriloProzorec.profilSectionZab
+        this.kriloHeight = this.kriloHeight + 2 * this.frameSystem.sectionKriloProzorec.profilSectionZab
     }
 
     produceFillingMaterial() {
@@ -68,11 +80,13 @@ export class Krilo {
 
         if (widthApmlitude2 && heightAplititude2) {
             this.heightOfDrajka = heightFac / 2
+
         } else if (widthApmlitude4 && heightAplititude4) {
             this.heightOfDrajka = 180
         } else if (widthApmlitude1 && heightAplititude1) {
             this.heightOfDrajka = (heightFac - 115) / 2
         } else if (widthApmlitude3 && heightAplititude3) {
+            console.log('produceKrilo')
             this.heightOfDrajka = 180
         } else if (widthApmlitude5 && heightAplititude5) {
             this.heightOfDrajka = 300
@@ -94,6 +108,20 @@ export class Krilo {
             this.heightOfDrajka = 1000
         }
     }
+
+    produceException() {
+        let widthFalc = this.kriloWidth - 40
+        let heightFalc = this.kriloHeight - 40
+
+        if (widthFalc < 290) {
+            throw new Error(`Ширината на крилото по фалц е ${this.kriloWidth - 40}. Не може да бъде изпълнено със Sigenia`)
+        }
+        else if (widthFalc < 405 && heightFalc < 380) {
+            throw new Error(`Ширината на крилото по фалц е ${this.kriloWidth - 40},а височината- ${this.kriloHeight - 40}. Не може да бъде изпълнено със Sigenia`)
+        }
+    }
+
+
     toString() {
         let result = {}
         result['kriloWidth'] = this.kriloWidth

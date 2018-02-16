@@ -4,7 +4,21 @@ import { FrameSystem } from "./frameSystems";
 
 export class Kasa {
 
-    constructor(public kasaWidth: number, public kasaHeight: number, public frameSystem: FrameSystem, ) { }
+    public widthOtvor: number
+    public heightOtvor: number
+
+    constructor(public kasaWidth: number, public kasaHeight: number, public frameSystem: FrameSystem, ) {
+        this.produceOtvorDimentions()
+    }
+
+    produceOtvorDimentions() {
+        this.widthOtvor = this.kasaWidth - (2 * this.frameSystem.sectionKasa.profilSectionHeight)
+            + (2 * this.frameSystem.sectionKasa.profilSectionZab)
+
+
+        this.heightOtvor = this.kasaHeight - (2 * this.frameSystem.sectionKasa.profilSectionHeight)
+            + (2 * this.frameSystem.sectionKasa.profilSectionZab)
+    }
 
     toString() {
         let result = {}
@@ -22,6 +36,8 @@ export class KasaForEdnokrilWithRightFix extends Kasa {
     public fillingMaterial: FillingMaterial
     delitelStatichen: DelitelStatichenVertical
 
+
+
     constructor(kasaWidth: number, kasaHeight: number, frameSystem: FrameSystem) {
         super(kasaWidth, kasaHeight, frameSystem)
         this.produceFillingMaterial()
@@ -30,20 +46,16 @@ export class KasaForEdnokrilWithRightFix extends Kasa {
 
     produceFillingMaterial() {
 
-        let fullWidth = this.kasaWidth //1000
-        let fullHeight = this.kasaHeight
-        let debelinaNaKasata = this.frameSystem.sectionKasa.profilSectionHeight //67
-        let debelinaNaDelitelaStatichen = this.frameSystem.sectionDelitelStatichen.profilSectionHeight //84
+        let debelinaNaDelitelaStatichen = this.frameSystem.sectionDelitelStatichen.profilSectionHeight
 
-        let zastapKriloKasa = this.frameSystem.sectionKasa.overlapKriloKasa
-        let zastapKriloKasaIliDel = this.frameSystem.sectionKasa.overlapKriloKasa
+        let fillingMaterilaWidth = (this.widthOtvor - debelinaNaDelitelaStatichen) / 2
+        let fillingMaterilaHeight = this.heightOtvor
 
-        let fillingMaterilaWidth = (fullWidth - (2 * debelinaNaKasata) - debelinaNaDelitelaStatichen) / 2
-        let fillingMaterilaHeight = fullHeight - (2 * debelinaNaKasata)
+        this.widthOtvor = fillingMaterilaWidth
+        this.heightOtvor = fillingMaterilaHeight
 
         //da podam staklo tuk . Nujni sa mi inputDannite
-        this.fillingMaterial = new FillingMaterial(fillingMaterilaWidth, fillingMaterilaHeight, 'staklo'
-        )
+        this.fillingMaterial = new FillingMaterial(fillingMaterilaWidth, fillingMaterilaHeight, 'staklo')
     }
 
     toString() {
@@ -54,4 +66,9 @@ export class KasaForEdnokrilWithRightFix extends Kasa {
 
         return result
     }
+
+
 }
+
+
+//poslednta shema da dobawq input za razmeri.Sega mi deli na 4 4asti.FIxa e polowinata.

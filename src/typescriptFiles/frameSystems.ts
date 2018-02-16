@@ -36,8 +36,9 @@ export class Kommerling76System extends FrameSystem {
         this.sectionKriloProzorec = new SectionFrame76201()
         this.sectionDelitelStatichen = new SectionFrame76302()
         this.sectionDelitelLetqsht = new SectionFrame76402()
+
         //kriloto zastapva s 29 vsi3ko.vkliuchitelno i stati3en delitel
-        this.overlapKriloKasa = 29
+        
         this.overlapDelitelKrilo = 30
         this.overlapStaklopaketKriloIliKasa = 16
     }
