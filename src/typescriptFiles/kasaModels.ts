@@ -7,17 +7,23 @@ export class Kasa {
     public widthOtvor: number
     public heightOtvor: number
 
-    constructor(public kasaWidth: number, public kasaHeight: number, public frameSystem: FrameSystem, ) {
+    constructor(public delenieChasti: number, public kasaWidth: number,
+        public kasaHeight: number,
+        public frameSystem: FrameSystem, ) {
         this.produceOtvorDimentions()
     }
 
     produceOtvorDimentions() {
-        this.widthOtvor = this.kasaWidth - (2 * this.frameSystem.sectionKasa.profilSectionHeight)
-            + (2 * this.frameSystem.sectionKasa.profilSectionZab)
+        let debelinaNaKasata = this.frameSystem.sectionKasa.profilSectionHeight
+        let zab = this.frameSystem.sectionKasa.profilSectionZab
 
+        this.widthOtvor = this.kasaWidth
+            - (2 * debelinaNaKasata)
+            + (2 * zab)
 
-        this.heightOtvor = this.kasaHeight - (2 * this.frameSystem.sectionKasa.profilSectionHeight)
-            + (2 * this.frameSystem.sectionKasa.profilSectionZab)
+        this.heightOtvor = this.kasaHeight
+            - (2 * debelinaNaKasata)
+            + (2 * zab)
     }
 
     toString() {
@@ -36,26 +42,59 @@ export class KasaForEdnokrilWithRightFix extends Kasa {
     public fillingMaterial: FillingMaterial
     delitelStatichen: DelitelStatichenVertical
 
-
-
-    constructor(kasaWidth: number, kasaHeight: number, frameSystem: FrameSystem) {
-        super(kasaWidth, kasaHeight, frameSystem)
+    constructor(
+        delenieChasti: number,
+        kasaWidth: number,
+        kasaHeight: number,
+        frameSystem: FrameSystem) {
+        super(delenieChasti, kasaWidth, kasaHeight, frameSystem)
+        this.delitelStatichen =
+            new DelitelStatichenVertical(this.kasaWidth,
+                this.kasaHeight,
+                this.frameSystem)
         this.produceFillingMaterial()
-        this.delitelStatichen = new DelitelStatichenVertical(this.kasaWidth, this.kasaHeight, this.frameSystem)
+    }
+
+    produceOtvorDimentions() {
+        super.produceOtvorDimentions()
+        let totalWidthOtvor = this.calculateTotalWIdth()
+        console.log(totalWidthOtvor)
+
+
+        this.widthOtvor = (totalWidthOtvor / this.delenieChasti) * (this.delenieChasti - 1)
+        console.log(this.widthOtvor)
+        this.heightOtvor = this.heightOtvor
+    }
+
+    calculateTotalWIdth(): number {
+
+        let debDelStat = this.frameSystem.sectionDelitelStatichen.profilSectionHeight
+        // console.log(debDelStat)
+        let zab = this.frameSystem.sectionDelitelStatichen.profilSectionZab
+        // console.log(zab)
+        // console.log(this.widthOtvor)
+
+        let totalWidthOtvor = (this.widthOtvor - debDelStat + 2 * zab)
+        // console.log(totalWidthOtvor)
+
+        return totalWidthOtvor
     }
 
     produceFillingMaterial() {
 
-        let debelinaNaDelitelaStatichen = this.frameSystem.sectionDelitelStatichen.profilSectionHeight
+        let podlojkaStaklopaket = 6
 
-        let fillingMaterilaWidth = (this.widthOtvor - debelinaNaDelitelaStatichen) / 2
-        let fillingMaterilaHeight = this.heightOtvor
+        let totalWidthOtvor = this.calculateTotalWIdth()
 
-        this.widthOtvor = fillingMaterilaWidth
-        this.heightOtvor = fillingMaterilaHeight
+        let fillingMaterilaWidth =
+            (totalWidthOtvor / this.delenieChasti) - 2 * podlojkaStaklopaket
+        // console.log(fillingMaterilaWidth)
+        let fillingMaterilaHeight = this.heightOtvor - 2 * podlojkaStaklopaket
+        // console.log(fillingMaterilaWidth)
 
         //da podam staklo tuk . Nujni sa mi inputDannite
-        this.fillingMaterial = new FillingMaterial(fillingMaterilaWidth, fillingMaterilaHeight, 'staklo')
+        this.fillingMaterial =
+            new FillingMaterial(fillingMaterilaWidth, fillingMaterilaHeight, 'staklo')
     }
 
     toString() {

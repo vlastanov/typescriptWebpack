@@ -18,9 +18,6 @@ export class FrameContainer {
     srcId: string
     snimkaId: string
 
-    kriloWidthOtvor: number
-    kriloHeightOtvor: number
-
     constructor(
         protected frameSystem: FrameSystem,
         protected userInputParams: Object) {
@@ -31,8 +28,6 @@ export class FrameContainer {
         this.heightContainer = parseInt(this.userInputParams['height']) || 1000
         this.produceRollerShutter()
         this.produceKasa()
-        this.kriloWidthOtvor = this.kasa.widthOtvor
-        this.kriloHeightOtvor = this.kasa.heightOtvor
         this.produceMreja()
 
         this.produceNormalShutter()
@@ -50,9 +45,10 @@ export class FrameContainer {
     }
     produceKasa() {
         let kasaWidth = this.widthContainer
-        let kasaHeight = this.heightContainer - this.rollerShutter.rollerBoxHeight
+        let kasaHeight = this.heightContainer
+            - this.rollerShutter.rollerBoxHeight
 
-        this.kasa = new Kasa(kasaWidth, kasaHeight, this.frameSystem)
+        this.kasa = new Kasa(1,kasaWidth, kasaHeight, this.frameSystem)
     }
     produceMreja() {
         this.mreja = new Mreja(
@@ -99,8 +95,8 @@ export class EdnoKriloContainer extends FrameContainer {
             'hingesSideLeft',
             'openTilt',
             'kriloProzorec',
-            this.kriloWidthOtvor,
-            this.kriloHeightOtvor,
+            this.kasa.widthOtvor,
+            this.kasa.heightOtvor,
             this.frameSystem, 'staklo')
     }
 
@@ -125,26 +121,18 @@ export class EdnoKrilStatilDelitelContainer extends FrameContainer {
         let kasaWidth = this.widthContainer
         let kasaHeight = this.heightContainer - this.rollerShutter.rollerBoxHeight
 
-        this.kasa = new KasaForEdnokrilWithRightFix(kasaWidth, kasaHeight, this.frameSystem, )
+        this.kasa = new KasaForEdnokrilWithRightFix(2, kasaWidth, kasaHeight, this.frameSystem, )
     }
 
     produceKrila() {
-        let debelinaNaDelitelaStatichen = this.frameSystem.sectionDelitelStatichen.profilSectionHeight //84
-        let delitelStatichenZab = this.frameSystem.sectionDelitelStatichen.profilSectionZab
-
-        let kriloWidthOtvorNew = (this.kriloWidthOtvor - debelinaNaDelitelaStatichen + (2 * delitelStatichenZab)) / 2
-        let kriloHeightNew = this.kriloHeightOtvor
-
-        this.kriloWidthOtvor = kriloWidthOtvorNew
-        this.kriloHeightOtvor = kriloHeightNew
 
         this.krilo = new Krilo(
             1,
             'hingesSideLeft',
             'openTilt',
             'kriloProzorec',
-            this.kriloWidthOtvor,
-            this.kriloHeightOtvor,
+            this.kasa.widthOtvor,
+            this.kasa.heightOtvor,
             this.frameSystem, 'staklo')
     }
 
@@ -180,13 +168,12 @@ export class DveKrilaContainer extends FrameContainer {
         let debelinaNaDelitela = this.frameSystem.sectionDelitelLetqsht.profilSectionHeight
         let delitelZab = this.frameSystem.sectionDelitelLetqsht.profilSectionZab
 
+        let kriloWidthOtvor = this.kasa.widthOtvor
+        
         let kriloWidthOtvorNew =
-            (this.kriloWidthOtvor - debelinaNaDelitela + zastapDelitelKrilo + delitelZab) / 2
-
-        let kriloHeightNew = this.kriloHeightOtvor
-
-        this.kriloWidthOtvor = kriloWidthOtvorNew
-        this.kriloHeightOtvor = kriloHeightNew
+        (kriloWidthOtvor - debelinaNaDelitela + zastapDelitelKrilo + delitelZab) / 2
+        
+        let kriloHeightOtvor = this.kasa.heightOtvor
 
         this.kriloLeft =
             new Krilo(
@@ -194,8 +181,8 @@ export class DveKrilaContainer extends FrameContainer {
                 'hingesSideLeft',
                 this.leftWingSchema,
                 'kriloProzorec',
-                this.kriloWidthOtvor,
-                this.kriloHeightOtvor,
+                kriloWidthOtvorNew,
+                kriloHeightOtvor,
                 this.frameSystem, 'staklo'
             )
         this.kriloRight =
@@ -204,8 +191,8 @@ export class DveKrilaContainer extends FrameContainer {
                 'hingesSideRight',
                 this.rightWingSchema,
                 'kriloProzorec',
-                this.kriloWidthOtvor,
-                this.kriloHeightOtvor,
+                kriloWidthOtvorNew,
+                kriloHeightOtvor,
                 this.frameSystem, 'staklo'
             )
 
@@ -242,7 +229,7 @@ export class DveKrilaSFixContainer extends DveKrilaContainer {
         let kasaWidth = this.widthContainer
         let kasaHeight = this.heightContainer - this.rollerShutter.rollerBoxHeight
 
-        this.kasa = new KasaForEdnokrilWithRightFix(kasaWidth, kasaHeight, this.frameSystem)
+        this.kasa = new KasaForEdnokrilWithRightFix(3,kasaWidth, kasaHeight, this.frameSystem)
     }
 
     toString() {

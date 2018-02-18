@@ -23,8 +23,12 @@ export class Krilo {
     }
 
     produceDimentions() {
-        this.kriloWidth = this.kriloWidthOtvor + 2 * this.frameSystem.sectionKriloProzorec.profilSectionZab
-        this.kriloHeight = this.kriloHeight + 2 * this.frameSystem.sectionKriloProzorec.profilSectionZab
+        let zab = this.frameSystem.sectionKriloProzorec.profilSectionZab
+        let procep = 6
+
+        this.kriloWidth = this.kriloWidthOtvor - 2 * procep + 2 * zab
+        this.kriloHeight = this.kriloHeightOtvor - 2 * procep + 2 * zab
+
     }
 
     produceFillingMaterial() {

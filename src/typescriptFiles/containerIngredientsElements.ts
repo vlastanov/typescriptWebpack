@@ -171,6 +171,7 @@ export class SectionFrame76302 extends SectionFrame {
     produceSection() {
         this.profilSectionWidth = 0
         this.profilSectionHeight = 84
+        this.profilSectionZab = 21
     }
 }
 export class SectionFrame76402 extends SectionFrame {
